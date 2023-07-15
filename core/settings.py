@@ -12,7 +12,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 from django.utils.translation import gettext_lazy as _
+from environs import Env
 
+env = Env()
+env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-m2!utmzv^8h@k)^a5elg^h4*d$xow(@z9(i3n=qe5)s&$a!ts5'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -117,9 +120,9 @@ DATABASES = {
 # DATABASES = {
 #      'default': {
 #          'ENGINE': 'django.db.backends.postgresql',
-#          'NAME': 'tuitshop',
-#          'USER': 'tuitshop',
-#          'PASSWORD': 'tuitshop',
+#          'NAME': os.environ.get('NAME'),
+#          'USER': os.environ.get('DBUSER'),
+#          'PASSWORD': os.environ.get('PASSWORD'),
 #          'HOST': 'localhost',
 #          'PORT': 5432,
 #      }
