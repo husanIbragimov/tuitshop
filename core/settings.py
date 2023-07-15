@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-m2!utmzv^8h@k)^a5elg^h4*d$xow(@z9(i3n=qe5)s&$a!ts5'
+SECRET_KEY = '&$1yklh)i_q*dt*#c@cuoet$zvpd(_(b2zznh!q940)uv3_h=n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -106,24 +106,24 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-# ================================================== PostgresSQL =======================================================
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': "tuitshop",
-        'USER': "tuitshop",
-        'PASSWORD': "tuitshop",
-        'HOST': 'localhost',
-        'PORT': 5432,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# ================================================== PostgresSQL =======================================================
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': "tuitshop",
+#         'USER': "tuitshop",
+#         'PASSWORD': "tuitshop",
+#         'HOST': 'localhost',
+#         'PORT': 5432,
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
