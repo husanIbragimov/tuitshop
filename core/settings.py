@@ -117,9 +117,9 @@ DATABASES = {
 # DATABASES = {
 #      'default': {
 #          'ENGINE': 'django.db.backends.postgresql',
-#          'NAME': 'choko',
-#          'USER': 'choko',
-#          'PASSWORD': 'choko',
+#          'NAME': 'tuitshop',
+#          'USER': 'tuitshop',
+#          'PASSWORD': 'tuitshop',
 #          'HOST': 'localhost',
 #          'PORT': 5432,
 #      }
@@ -163,31 +163,21 @@ USE_TZ = True
 
 # language
 
-MODELTRANSLATION_DEFAULT_LANGUAGE = 'uz'
-
-LANGUAGES = [
+LANGUAGES = (
+    ('en', _('English')),
     ('uz', _('Uzbek')),
-    ('ru', _('Russian'))
-]
-
-LOCALE_PATHS = (
-    os.path.join(BASE_DIR, 'locale'),
+    ('ru', _('Russian')),
 )
+LOCALE_PATHS = [
+    BASE_DIR / 'locale/',
+]
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
+MODELTRANSLATION_LANGUAGES = ('en', 'uz', 'ru')
+MODELTRANSLATION_FALLBACK_LANGUAGES = ('ru', 'uz', 'en')
 
-MODELTRANSLATION_LANGUAGE = ('ru',)
-# MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'ru'
-
-PARLER_LANGUAGES = {
-    None: (
-        {'code': 'uz', },  # Uzbek
-        {'code': 'ru', },  # Russian
-    ),
-    'default': {
-        'fallbacks': ['uz'],
-        'hide_untranslated': False,
-    }
-}
-
+MODELTRANSLATION_TRANSLATION_FILES = (
+    'apps.product.translation',
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
