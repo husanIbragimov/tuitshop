@@ -12,10 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 from django.utils.translation import gettext_lazy as _
-from environs import Env
 
-env = Env()
-env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -118,16 +115,15 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 # ================================================== PostgresSQL =======================================================
 DATABASES = {
-     'default': {
-         'ENGINE': 'django.db.backends.postgresql',
-         'NAME': "tuitshop",
-         'USER': "tuitshop",
-         'PASSWORD': "tuitshop",
-         'HOST': 'localhost',
-         'PORT': 5432,
-     }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': "tuitshop",
+        'USER': "tuitshop",
+        'PASSWORD': "tuitshop",
+        'HOST': 'localhost',
+        'PORT': 5432,
+    }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
