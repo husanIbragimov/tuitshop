@@ -1,0 +1,91 @@
+﻿{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static '' %}../../../leaflet%401.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin="">
+{% endblock %}
+{% block topscript %}
+    <script src="{% static '' %}../../../leaflet%401.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
+{% endblock %}
+{% block content %}
+    <main class="main">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/" rel="nofollow">{% trans "Bosh sahifa" %}</a>
+                    <span></span> {% trans "Aloqa" %}
+                </div>
+            </div>
+        </div>
+        <section class="section-border pt-50 pb-50">
+            <div class="container">
+                <div class="row">
+                    {% for location in locations %}
+                        <div class="col-md-4 mb-4 mb-md-6">
+                            <h4 class="mb-15 text-muted">{{ location.name}}</h4>
+                            <p><i class="fas fa-location"></i> {{ location.address }}</p>
+                            <p><i class="fas fa-phone-office"> </i>  <abbr title="Phone">Phone:</abbr> {{ location.phone_number }}</p>
+                            <a href="{{ location.location }}" class="btn btn-outline btn-sm btn-brand-outline font-weight-bold text-brand bg-white text-hover-white mt-20 border-radius-5 btn-shadow-brand hover-up"><i
+                                    class="fa fa-map text-muted mr-15"></i>View map</a>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </section>
+        <section class="mt-50 pt-50 pb-50">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-10 m-auto">
+                        <div class="contact-from-area  padding-20-row-col wow tmFadeInUp">
+                            <h3 class="mb-10 text-center">{% trans "Aloqa" %}</h3>
+                            <p class="text-muted mb-30 text-center font-sm"></p>
+                            <form class="contact-form-style text-center" id="contact-form" action="#" method="post">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="input-style mb-20">
+                                            <input name="first_name" placeholder="{% trans "Ism" %}" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="input-style mb-20">
+                                            <input name="last_name" placeholder="{% trans "Familiya" %}" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="input-style mb-20">
+                                            <input name="telephone" placeholder="{% trans "Telefon raqam" %}" type="tel">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="textarea-style mb-30">
+                                            <textarea name="message" placeholder="{% trans "Izoh qoldirish" %}"></textarea>
+                                        </div>
+                                        <button class="submit submit-auto-width" type="submit">Send message</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <p class="form-messege"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block script %}
+    <!-- Vendor JS-->
+    <script data-cfasync="false"
+            src="{% static '' %}../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="{% static '' %}assets/js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="{% static '' %}assets/js/plugins/leaflet.js"></script>
+    <!-- Template  JS -->
+{% endblock %}

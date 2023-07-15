@@ -1,0 +1,72 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+    <main class="main">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/" rel="nofollow">{% trans "Bosh sahifa" %}</a>
+                    <span></span> {% trans "Sahifa" %}
+                    <span></span> {% trans "Ro'yxatdan o'tish" %}
+                </div>
+            </div>
+        </div>
+
+        <section class="pt-50 pb-150">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 m-auto">
+                        <div class="row">
+                            <div class="col-lg-1"></div>
+                            <div class="col-lg-6">
+                                <div class="login_wrap widget-taber-content p-30 background-white border-radius-5">
+                                    <div class="padding_eight_all bg-white">
+                                        {% if messages %}
+                                            {% for message in messages %}
+                                                <div class="alert alert-{{ message.tags }}" role="alert">
+                                                    {{ message }}
+                                                </div>
+                                            {% endfor %}
+                                        {% endif %}
+                                        <div class="heading_s1">
+                                            <h3 class="mb-30">{% trans "Hisob yaratish" %}</h3>
+                                        </div>
+                                        <p class="mb-50 font-sm">
+                                            {% trans "Sizning shaxsiy ma'lumotlaringiz bu vaqt davomida tajribangizni qo'llab-quvvatlash uchun ishlatiladi veb-sayt, hisobingizga kirishni boshqarish va tavsiflangan boshqa maqsadlar uchun maxfiylik siyosatimizda" %}
+                                        </p>
+                                        <form method="post" action="">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <input type="text" required="" name="username"
+                                                       placeholder="{% trans "Telefon raqam" %}">
+                                            </div>
+                                            <div class="form-group">
+                                                <input required="" type="password" name="password1"
+                                                       placeholder="{% trans "Parol" %}">
+                                            </div>
+                                            <div class="form-group">
+                                                <input required="" type="password" name="password2"
+                                                       placeholder="{% trans "Parolni tasdiqlash" %}">
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-fill-out btn-block hover-up"
+                                                        name="login">{% trans "Ro'yxatdan o'tish" %}
+                                                </button>
+                                            </div>
+                                        </form>
+                                        <div class="divider-text-center mt-15 mb-15">
+                                            <span> or</span>
+                                        </div>
+                                        <div class="text-muted text-center">{% trans "Allaqachon ro'yxatdan o'tkanmisiz" %} <a href="{% url "login" %}"> {% trans "Kirish" %}</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

@@ -1,0 +1,182 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+
+{% block content %}
+
+    <main class="main">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/" rel="nofollow">{% trans "Bosh sahifa" %}</a>
+                    <span></span> {% trans "Mahsulotlar" %}
+                    <span></span> {% trans "Sizning savatchangiz" %}
+                </div>
+            </div>
+        </div>
+        <section class="mt-60 mb-60">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table shopping-summery text-center clean">
+                                <thead>
+                                <tr class="main-heading">
+                                    <th scope="col">{% trans "Rasm" %}</th>
+                                    <th scope="col">{% trans "Nomi" %}</th>
+                                    <th scope="col">{% trans "Narxi" %}</th>
+                                    <th scope="col">{% trans "Miqdori" %}</th>
+                                    <th scope="col">{% trans "Muddati" %}</th>
+                                    <th scope="col">{% trans "Jami" %}</th>
+                                    <th scope="col">{% trans "O'chirish" %}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for item in cart.cart_items.all %}
+                                    <tr>
+                                        <td class="image product-thumbnail"><img
+                                                src="{{ item.product_image.image.url }}"
+                                                alt="#"></td>
+                                        <td class="product-des product-name">
+                                            <p class="product-name"><a
+                                                    href="{% url "shop-details" item.product.id %}">{{ item.product.title }}</a>
+                                            </p>
+                                        </td>
+                                        <td class="price" data-title="Price">
+                                            <span>{{ item.product_image.total_uzs|intcomma }} UZS</span></td>
+                                        <td class="text-center" data-title="Stock">
+                                            <div class="detail-qty border radius  m-auto">
+                                                <a href="#" class="qty-down"></a>
+                                                <span class="qty-val">{{ item.quantity }}</span>
+                                                <a href="#" class="qty-up"></a>
+                                            </div>
+                                        </td>
+                                        <td class="text-right" data-title="Cart">
+                                            <span>{{ item.variant.duration }} {% trans "oy" %}</span>
+                                        </td>
+                                        <td class="text-right" data-title="Cart">
+                                            <span>{{ item.subtotal|intcomma }} UZS</span>
+                                        </td>
+                                        <td class="action" data-title="Remove"><a
+                                                href="/order/delete-cart-item/{{ item.id }}" class="text-muted"><i
+                                                class="fa fa-trash-alt"
+                                                onclick="return confirm('{% trans "Rostdan ham ushbu mahsulotni o'chirmoqchimisiz?" %}')"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="cart-action text-end">
+                            <a class="btn btn-rounded mr-10 mt-5" href="{% url "products_filter" %}"><i
+                                    class="far fa-retweet mr-5"></i>{% trans "Savatchani yangilash" %}</a>
+                            <a class="btn btn-rounded mt-5" href="{% url "create-order" cart.id %}"><i
+                                    class="far fa-cart-plus mr-5"></i>{% trans "Davom etish" %}</a>
+
+                        </div>
+                        <div class="divider center_icon mt-50 mb-50"><i class="fa fa-gem"></i></div>
+                        <div class="row mb-50">
+
+                            <div class="col-lg-6 col-md-12">
+                                <div class="border p-md-4 p-30 border-radius-10 cart-totals">
+                                    <div class="heading_s1 mb-3">
+                                        <h4>{% trans "Jami Savatcha" %}</h4>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <tbody>
+                                            <tr>
+                                                <td class="cart_total_label fs-6">{% trans "Umumiy" %}</td>
+                                                <td class="cart_total_amount"><strong><span
+                                                        class="font-xl fw-900 text-brand">{{ cart.cart_total|intcomma }} UZS</span></strong>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    {#                                    <div class="cart-action text-end">#}
+                                    {#                                        <a href="{% url "create-order" cart.id %}" class="btn btn-rounded mr-10 mt-5">#}
+                                    {#                                            <i class="fa fa-share-square mr-10"></i>#}
+                                    {#                                            {% trans "Buyurtmani tasdiqlash" %}</a>#}
+                                    {#                                        <a href="{% url "create-order" cart.id %}" class="btn btn-rounded mt-5"> <i#}
+                                    {#                                                class="fa fa-share-square mr-10"></i>#}
+                                    {#                                            {% trans "Buyurtmani tasdiqlash" %}</a>#}
+                                    {#                                    </div>#}
+                                    <div class="cart-action text-end">
+                                        <a class="btn btn-rounded mr-12 fa-6 mt-5"
+                                           href="{% url "create-order" cart.id %}"><i
+                                                class="fa fa-share-square mr-10"></i>{% trans "Buyurtmani tasdiqlash" %}
+                                        </a>
+                                        <button type="button" class="btn btn-rounded mt-5"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal" data-bs-whatever="+998"><i
+                                                class="far fa-phone-plus mr-5"></i>{% trans "Hoziroq oling" %}
+                                        </button>
+                                        <div class="modal fade" id="exampleModal" tabindex="-1"
+                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
+                                                        <form action="{% url 'confirm-order' %}" method="post">
+                                                            {% csrf_token %}
+                                                    <div class="modal-body" >
+                                                            <div class="mb-3">
+                                                                <input type="hidden" value="{{ cart.id }}" name="id">
+                                                                <label for="recipient-name"
+                                                                       class="col-form-label fs-6 text-left">{% trans "Telefon raqamingizni kiriting" %}:</label>
+                                                                <input type="text" class="form-control"
+                                                                       id="recipient-name"
+                                                                       required
+                                                                       value=""
+                                                                       name="phone_number"
+                                                                       placeholder="+998 90 123 45 67">
+                                                            </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">{% trans "Bekor qilish" %}
+                                                        </button>
+                                                        <button type="submit" class="btn btn-primary">{% trans "Yuborish" %}
+                                                        </button>
+
+                                                    </div>
+                                                            </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+{% block script %}
+    <script>
+        const exampleModal = document.getElementById('exampleModal')
+        if (exampleModal) {
+            exampleModal.addEventListener('show.bs.modal', event => {
+                // Button that triggered the modal
+                const button = event.relatedTarget
+                // Extract info from data-bs-* attributes
+                const recipient = button.getAttribute('data-bs-whatever')
+                // If necessary, you could initiate an Ajax request here
+                // and then do the updating in a callback.
+
+                // Update the modal's content.
+                const modalTitle = exampleModal.querySelector('.modal-title')
+                const modalBodyInput = exampleModal.querySelector('.modal-body input')
+
+                modalTitle.textContent = `New message to ${recipient}`
+                modalBodyInput.value = recipient
+            })
+        }
+    </script>
+{% endblock %}

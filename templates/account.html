@@ -1,0 +1,106 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+
+{% block content %}
+    <main class="main">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/" rel="nofollow">{% trans "Bosh sahifa" %}</a>
+                    <span></span> {% trans "Sahifa" %}
+                    <span></span> {% trans "Kabinet" %}
+                </div>
+            </div>
+        </div>
+        <section class="pt-150 pb-150">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 m-auto">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="dashboard-menu">
+                                    <ul class="nav flex-column" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="dashboard-tab" data-bs-toggle="tab"
+                                               href="#dashboard" role="tab" aria-controls="dashboard"
+                                               aria-selected="false"><i
+                                                    class="fa fa-atom mr-15"></i>{% trans "Dashboard" %}</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="orders-tab" data-bs-toggle="tab" href="#orders"
+                                               role="tab" aria-controls="orders" aria-selected="false"><i
+                                                    class="fa fa-shopping-basket mr-15"></i>{% trans "Buyurtma" %}
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{% url 'logout' %}"><i
+                                                    class="fa fa-lock mr-15"></i>{% trans "Chiqish" %}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="tab-content dashboard-content">
+                                    <div class="tab-pane fade active show" id="dashboard" role="tabpanel"
+                                         aria-labelledby="dashboard-tab">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5 class="mb-0">{% trans "Salom" %} {{ user.username }}! </h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <p>{% trans "Boshqaruv panelingiz orqali. Siz osonlik bilan so'ngi buyurtmalarni tekshirishingiz va ko'rishingiz mumkin" %}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5 class="mb-0">{% trans "Sizning buyurtmalaringiz" %}</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>{% trans "Buyurtma" %}</th>
+                                                            <th>{% trans "Sana" %}</th>
+                                                            <th>{% trans "Holati" %}</th>
+                                                            <th>{% trans "Umumiy" %} (uzs)</th>
+                                                            <th>{% trans "Soni" %}</th>
+                                                            <th>{% trans "Ko'rish" %}</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {% for order in orders %}
+                                                            <tr>
+                                                                <td>{{ forloop.counter }}</td>
+                                                                <td>{{ order.created_at }}</td>
+                                                                <td>{{ order.status }}</td>
+                                                                <td>{{ order.cart_total|intcomma }}</td>
+                                                                <td>{{ order.num_of_items }}</td>
+
+                                                                <td>
+
+                                                                    <a href="#" class="btn-small d-block">View</a>
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+{% endblock %}

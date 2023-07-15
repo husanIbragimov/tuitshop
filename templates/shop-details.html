@@ -1,0 +1,592 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+{% block style %}
+    <style>
+        @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+        .form-submit {
+            padding: 4px !important;
+            border: 0px !important;
+            background-color: #ffffff !important;
+            border-radius: 0px !important;
+        }
+
+        .loader {
+            display: none;
+        }
+
+
+        fieldset, label {
+            margin: 0;
+            padding: 0;
+        }
+
+        /****** Style Star Rating Widget *****/
+
+        .rating {
+            border: none;
+            float: left;
+        }
+
+        .rating > input {
+            display: none;
+        }
+
+        .rating > label:before {
+            margin: 5px;
+            font-size: 1.25em;
+            font-family: FontAwesome;
+            display: inline-block;
+            content: "\f005";
+        }
+
+        .rating > .half:before {
+            content: "\f089";
+            position: absolute;
+        }
+
+        .rating > label {
+            color: #ddd;
+            float: right;
+        }
+
+        /***** CSS Magic to Highlight Stars on Hover *****/
+
+        .rating > input:checked ~ label, /* show gold star when clicked */
+        .rating:not(:checked) > label:hover, /* hover current star */
+        .rating:not(:checked) > label:hover ~ label {
+            color: #FFD700;
+        }
+
+        /* hover previous stars in list */
+
+        .rating > input:checked + label:hover, /* hover current star when changing rating */
+        .rating > input:checked ~ label:hover,
+        .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+        .rating > input:checked ~ label:hover ~ label {
+            color: #FFED85;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+
+
+
+
+    <main class="main">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/" rel="nofollow">{% trans "Bosh sahifa" %}</a>
+                    <span></span> {{ product.category.first }}
+                    <span></span> {{ product.title }}
+                </div>
+            </div>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <section class="mt-60 mb-60">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="product-detail accordion-detail">
+                            <div class="row mb-50">
+                                <div class="col-md-6 col-sm-12 col-xs-12" style="height: 70%; width: 471px;">
+                                    <div class="detail-gallery">
+                                        <!-- MAIN SLIDES -->
+                                        <div class="product-image-slider" id="main_slider_image">
+
+                                        </div>
+                                        <!-- THUMBNAILS -->
+                                        <div class="slider-nav-thumbnails pl-15 pr-15" id="slider_image">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12 col-xs-12">
+                                    <div class="detail-info">
+                                        <h2 class="title-detail">{{ product.title }}</h2>
+                                        <div class="product-detail-rating">
+                                            <div class="pro-details-brand">
+                                                <span> {% trans "Brand" %}: <a
+                                                        href="/shop/?brand={{ product.brand }}">{{ product.brand }}</a></span>
+                                            </div>
+                                            <div class="product-rate-cover text-end">
+                                                <div class="product-rate d-inline-block">
+                                                    <div class="product-rating"
+                                                         style="width:{{ product.mid_rate_percent }}%">
+                                                    </div>
+                                                </div>
+                                                <span class="font-small ml-5 text-muted"> ({{ product.product_rate.all.count }} {% trans "Izohlar" %})</span>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix product-price-cover">
+                                            <div class="product-price primary-color float-left d-flex">
+                                                {% if product.percentage > 0 %}
+                                                    <div class="mr-50">
+                                                        <p class="fw-600">{% trans "Bo'lib to'lash" %}:</p>
+                                                        <ins><span id="monthly" style="font-size: 20px"
+                                                                   class="text-brand">{{ default_monthly_price|intcomma }} uzs/oy</span>
+                                                        </ins>
+                                                    </div>
+                                                    <div>
+                                                        <p>{% trans "Narx" %}:</p>
+                                                        <span style="font-size: 20px" id="origin_price"
+                                                        >{{ image_objects.first.total_uzs|intcomma }} uzs</span>
+
+                                                    </div>
+
+                                                    <span class="save-price  font-md color3 ml-15">{{ product.percentage }}% Off</span>
+                                                {% else %}
+                                                    <div class="mr-50">
+                                                        <p class="fw-600">{% trans "Bo'lib to'lash" %}:</p>
+                                                        <ins><span id="monthly" style="font-size: 20px"
+                                                                   class="text-brand">{{ default_monthly_price|intcomma }} uzs/oy</span>
+                                                        </ins>
+                                                    </div>
+                                                    <div class="mt-15">
+                                                        <p>{% trans "Narx" %}:</p>
+                                                        <span style="font-size: 15px" id="origin_price"
+                                                        >{{ image_objects.first.total_uzs|intcomma }} uzs</span>
+
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="bt-1 border-color-1 mt-15 mb-15"></div>
+                                        <div class="short-desc mb-30">
+                                            {{ product.description|safe|truncatewords:40 }}
+                                        </div>
+                                        <div class="attr-detail attr-color mb-15">
+                                            <strong class="mr-10">{% trans "Rang" %}:</strong>
+                                            <ul class="list-filter color-filter" id="color_class">
+                                                {% for item in images %}
+                                                    {% csrf_token %}
+                                                    <li class="ml-5 list-form">
+                                                        <input class="image_id" id="image_id" name="image_id"
+                                                               type="hidden"
+                                                               value="{{ item.id }}">
+                                                        <a href="#"
+                                                           onclick="send_val({{ item.id }}, {{ product.id }}, {{ item.price_uzs }})"
+                                                           class="form-submit">
+                                                            <img src="{{ item.image.url }}" alt="" width="50"
+                                                                 height="50">
+                                                            <p class="d-none">{{ item.id }}</p>
+                                                        </a>
+
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                        {% if product.size.all %}
+                                            <div class="attr-detail attr-size mb-15">
+                                                <strong class="mr-10">{% trans "O'lcham" %}</strong>
+                                                <ul class="list-filter size-filter font-small size_class">
+                                                    {% for size in product.size.all %}
+                                                        <li><a href="#">{{ size.name }}</a></li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+
+                                        {% endif %}
+                                        <div class="attr-detail attr-size mt-15 mb-15">
+                                            <strong class="mr-10">{% trans "Bo'lib to'lash" %}:</strong>
+                                            <ul class="list-filter size-filter font-small variant_class">
+                                                {% for variant in variants %}
+                                                    <li class="{% if variant.id == active_variant.id %}active{% endif %}">
+                                                        <a class="calculate"
+                                                           onclick="calculate({
+                                                                   duration:{{ variant.duration }},
+                                                                   percent:{{ variant.percent }},
+                                                                   price:'{{ image_objects.first.price_uzs }}',
+                                                                   status: 'variant',
+                                                                   id:{{ variant.id }}
+                                                                   })"
+
+                                                           href="#">{{ variant.duration }} {% trans "oy" %}
+                                                            <span class="d-none">{{ variant.id }}</span>
+                                                        </a>
+                                                    </li>
+
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+
+                                        <div class="bt-1 border-color-1 mt-30 mb-30"></div>
+                                        <div class="detail-extralink">
+                                            <div class="border radius">
+                                                {% csrf_token %}
+                                                <input class="prod_id" type="hidden" value="{{ product.id }}">
+                                                <input class="qty-input" type="number" min="1" value="1">
+                                            </div>
+                                            <div class="product-extra-link2">
+                                                <button style="border-radius: 30px" type="button"
+                                                        class="button button-add-to-cart addToCartBtn">{% trans "Savatchaga qo'shish" %}
+                                                </button>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                    <!-- Detail Info -->
+                                </div>
+                            </div>
+                            <div class="tab-style3">
+                                <ul class="nav nav-tabs text-uppercase">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="Description-tab" data-bs-toggle="tab"
+                                           href="#Description">{% trans "Tafsilotlar" %}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="Additional-info-tab" data-bs-toggle="tab"
+                                           href="#Additional-info">{% trans "Qo'shimcha ma'lumotlar" %}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab"
+                                           href="#Reviews">{% trans "Baholar" %}
+                                            ({{ product.product_rate.all.count }})</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content shop_info_tab entry-main-content">
+                                    <div class="tab-pane fade show active" id="Description">
+                                        <div class="">
+                                            {{ product.description|safe }}
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="Additional-info">
+                                        <table class="font-md">
+                                            <tbody>
+                                            {% for item in product.additional_info.all %}
+                                                <tr class="stand-up">
+                                                    <th>{{ item.title }}</th>
+                                                    <td>
+                                                        <p>{{ item.description|safe }}</p>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane fade" id="Reviews">
+                                        <!--Comments-->
+                                        <div class="comments-area">
+                                            <div class="row">
+                                                <div class="col-lg-8">
+                                                    <h4 class="mb-30">{% trans "Xaridorlar fikri" %}</h4>
+                                                    <div class="comment-list">
+                                                        {% for rate in product.product_rate.all %}
+                                                            <div class="single-comment justify-content-between d-flex">
+                                                                <div class="user justify-content-between d-flex">
+                                                                    <div class="thumb text-center">
+                                                                        <img src="{% static 'assets/imgs/user.png' %}"
+                                                                             alt="">
+                                                                        <h6><a href="#">{{ rate.user.username }}</a>
+                                                                        </h6>
+                                                                    </div>
+                                                                    <div class="desc">
+                                                                        <div class="product-rate d-inline-block">
+                                                                            <div class="product-rating"
+                                                                                 style="width:{{ rate.rate_percent }}%">
+                                                                            </div>
+                                                                        </div>
+                                                                        <p>{{ rate.comment }}</p>
+                                                                        <div class="d-flex justify-content-between">
+                                                                            <div class="d-flex align-items-center">
+                                                                                <p class="font-xs mr-30">{{ rate.created_at }}</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--comment form-->
+
+                                        <div class="comment-form">
+                                            <h4 class="mb-15">{% trans "Izoh qoldirish" %}</h4>
+
+                                            <div class="row">
+                                                <div class="col-lg-8 col-md-12">
+                                                    <form class="form-contact comment_form" action="{% url 'review' %}"
+                                                          method="post" id="commentForm">
+                                                        {% csrf_token %}
+
+                                                        <div class="d-inline-block mb-20">
+                                                            <fieldset class="rating">
+                                                                <input type="radio" id="star5" name="rating" value="5"/>
+                                                                <label
+                                                                        class="full" for="star5"
+                                                                        title="Awesome - 5 stars"></label>
+                                                                <input type="radio" id="star4" name="rating"
+                                                                       value="4"/><label
+                                                                    class="full" for="star4"
+                                                                    title="Pretty good - 4 stars"></label>
+                                                                <input type="radio" id="star3" name="rating"
+                                                                       value="3"/><label
+                                                                    class="full" for="star3"
+                                                                    title="Meh - 3 stars"></label>
+                                                                <input type="radio" id="star2" name="rating"
+                                                                       value="2"/><label
+                                                                    class="full" for="star2"
+                                                                    title="Kinda bad - 2 stars"></label>
+                                                                <input type="radio" id="star1" name="rating"
+                                                                       value="1"/><label
+                                                                    class="full" for="star1"
+                                                                    title="Sucks big time - 1 star"></label>
+                                                            </fieldset>
+                                                        </div>
+
+                                                        <div class="col-lg-8 col-md-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="form-group">
+                                                                    <textarea class="form-control w-100" name="comment"
+                                                                              id="comment" cols="30" rows="9"
+                                                                              placeholder="{% trans "Izoh yozish" %}..."></textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="hidden" name="product"
+                                                                       value="{{ product.id }}">
+                                                                <div class="form-group">
+                                                                    <button type="submit"
+                                                                            class="button button-contactForm">
+                                                                        {% trans "Saqlash" %}
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-60">
+                                <div class="col-12">
+                                    <h3 class="section-title style-1 mb-30">{% trans "O'xshash Mahsulotlar" %}</h3>
+                                </div>
+                                <div class="row">
+                                    {% for item in related_products %}
+                                        <div class="col-lg-3 col-md-4 col-6 col-sm-6">
+                                            <div class="product-cart-wrap small hover-up">
+                                                <div class="product-img-action-wrap">
+                                                    <div class="product-img product-img-zoom">
+                                                        <a href="{% url "shop-details" item.id %}" tabindex="0">
+                                                            <img class="default-img"
+                                                                 src="{{ item.product_images.first.image.url }}"
+                                                                 alt="">
+                                                            <img class="hover-img"
+                                                                 src="{{ item.product_images.last.image.url }}"
+                                                                 alt="">
+                                                        </a>
+                                                    </div>
+                                                    <div class="product-action-1">
+                                                        <a aria-label="Add To Wishlist"
+                                                           class="action-btn small hover-up"
+                                                           href="{% url "wishlist" item.id %}" tabindex="0"><i
+                                                                class="far fa-heart pt-10"></i></a>
+                                                    </div>
+                                                    <div class="product-badges product-badges-position product-badges-mrg">
+                                                        <span class="{{ product.status.lower }}">{% if product.status %}{{ product.status }}{% endif %}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="product-content-wrap">
+                                                    <h2><a href="{% url "shop-details" item.id %}"
+                                                           tabindex="0">{{ item.title|slice:'0:20' }}</a>
+                                                    </h2>
+                                                    <div class="product-rate d-inline-block">
+                                                        <div class="product-rating"
+                                                             title="{{ item.mid_rate_percent }}%"
+                                                             style="width:{{ item.mid_rate_percent }}%">
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-price">
+                                                        {% if item.percentage > 0 %}
+                                                            <span>{{ item.monthly_uzs|intcomma }} {% trans "uzs" %} x {{ active_variant }} {% trans "oy" %}</span>
+                                                            <br>
+                                                            <span class="bg-warning new_price">UZS {{ item.discount_uzs|intcomma }} </span>
+                                                            <br>
+                                                            <br>
+                                                            <span class="old-price">UZS {{ item.total_uzs|intcomma }}</span>
+
+                                                        {% else %}
+                                                            <span>{{ item.monthly_uzs|intcomma }} {% trans "uzs" %} x {{ active_variant }} {% trans "oy" %}</span>
+                                                            <br>
+                                                            <span class="bg-warning new_price">UZS {{ item.total_uzs|intcomma }} UZS</span>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 primary-sidebar sticky-sidebar">
+                        <div class="widget-area">
+                            <!-- Product sidebar Widget -->
+                            <div class="sidebar-widget product-sidebar mb-30 p-30 bg-grey border-radius-10">
+                                <div class="widget-header position-relative mb-20 pb-10">
+                                    <h5 class="widget-title mb-10">{% trans "So'ngi mahsulotlar" %}</h5>
+                                    <div class="bt-1 border-color-1"></div>
+                                </div>
+                                {% for item in new_products|slice:'0:8' %}
+                                    <div class="single-post clearfix">
+                                        <div class="image">
+                                            <img src="{{ item.product_images.first.image.url }}" alt="#">
+                                        </div>
+                                        <div class="content pt-10">
+                                            <h5>
+                                                <a href="{% url "shop-details" item.id %}">{{ item.title|slice:'0:8' }}</a>
+                                            </h5>
+
+                                            {% if item.percentage > 0 %}
+                                                <span>{{ item.monthly_uzs|intcomma }} {% trans "uzs" %} x {{ active_variant }} {% trans "oy" %}</span>
+                                                <br>
+                                                <span class="price mb-0 mt-5 bg-warning new_price">UZS {{ item.discount_uzs|intcomma }} </span>
+                                            {% else %}
+                                                <span>{{ item.monthly_uzs|intcomma }} {% trans "uzs" %} x {{ active_variant }} {% trans "oy" %}</span>
+                                                <br>
+                                                <span class="price mb-0 mt-5 bg-warning new_price">UZS {{ item.total_uzs|intcomma }} </span>
+                                            {% endif %}
+
+                                            <div class="product-rate">
+                                                <div class="product-rating"
+                                                     style="width:{{ item.mid_rate_percent }}%"></div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <!--Widget categories-->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+{% block script %}
+    <script src="{% static 'assets/js/plugins/jquery.theia.sticky.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/jquery.elevatezoom.js' %}"></script>
+
+    <script src="{% static 'assets/js/alertify.min.js' %}"></script>
+    <script src="{% static 'assets/js/ajax_request.js' %}"></script>
+    <script src="{% static 'assets/js/calculate_price.js' %}"></script>
+    <script src="{% static 'assets/js/change_photo.js' %}"></script>
+
+    <script>
+        let status = {
+            image: 0,
+            variant: 0,
+        }
+        {% for image in image_objects %}
+            <!-- MAIN_SLIDES -->
+            var main_img = document.createElement("img");
+            main_img.src = "{{ image.image.url }}";
+            main_img.id = "main_slide_image_id-{{ forloop.counter0 }}";
+            var main_div = document.createElement("div");
+            main_div.id = 'main_div_image-{{ forloop.counter0 }}';
+            main_div.appendChild(main_img);
+            document.getElementById("main_slider_image").appendChild(main_div);
+
+            <!-- THUMBNAILS -->
+            var img = document.createElement("img");
+            img.src = "{{ image.image.url }}";
+            img.id = "slide_image_id-{{ forloop.counter0 }}";
+            var div = document.createElement("div");
+            div.id = 'div_image-{{ forloop.counter0 }}';
+            div.appendChild(img);
+            document.getElementById("slider_image").appendChild(div);
+        {% endfor %}
+        function generate(data) {
+            {% for image in image_objects %}
+                <!-- MAIN_SLIDES -->
+                var main_text = "main_slide_image_id-" + {{ forloop.counter0 }};
+                var main_text_div = "main_div_image-" + {{ forloop.counter0 }};
+                <!-- THUMBNAILS -->
+                var text = "slide_image_id-" + {{ forloop.counter0 }};
+                var text_div = "div_image-" + {{ forloop.counter0 }};
+                if (data.length > {{ forloop.counter0 }}) {
+                    <!-- MAIN_SLIDES -->
+                    document.getElementById(main_text).remove();
+                    var main_img = document.createElement("img");
+                    main_img.src = data[{{ forloop.counter0 }}].url;
+                    main_img.id = "main_slide_image_id-" + {{ forloop.counter0 }};
+                    var main_div = document.createElement("div");
+                    main_div.id = 'main_div_image_slide';
+                    main_div.appendChild(main_img);
+                    document.getElementById(main_text_div).appendChild(main_div);
+                    <!-- THUMBNAILS -->
+                    document.getElementById(text).remove();
+                    var img = document.createElement("img");
+                    img.src = data[{{ forloop.counter0 }}].url;
+                    img.id = "slide_image_id-" + {{ forloop.counter0 }};
+                    var div = document.createElement("div");
+                    div.id = 'div_image_slide';
+                    div.appendChild(img);
+                    document.getElementById(text_div).appendChild(div);
+                } else {
+                    <!-- MAIN_SLIDES -->
+                    var main_imge = document.getElementById(main_text);
+                    main_imge.src = "";
+                    main_imge.id = "main_slide_image_id-" + {{ forloop.counter0 }};
+                    var main_dive = document.createElement("div");
+                    main_dive.id = 'main_div_image_slide';
+                    main_dive.appendChild(main_imge);
+                    document.getElementById(main_text_div).appendChild(main_dive);
+                    <!-- THUMBNAILS -->
+                    var imge = document.getElementById(text);
+                    imge.src = "";
+                    imge.id = "slide_image_id-" + {{ forloop.counter0 }};
+                    var dive = document.createElement("div");
+                    dive.id = 'div_image_slide';
+                    dive.appendChild(imge);
+                    document.getElementById(text_div).appendChild(dive);
+                    // Expected output: ReferenceError: nonExistentFunction is not defined
+                    // (Note: the exact output may be browser-dependent)
+                }
+
+            {% endfor %}
+        }
+
+
+        function send_val(item_id, pro_id, price) {
+            calculate({{ active_variant.duration }}, {{ active_variant.percent }}, price, "images", item_id)
+            let image_id = item_id;
+            let product_id = pro_id;
+
+
+            var token = $("input[name=csrfmiddlewaretoken]").val();
+
+
+            $.ajax({
+                method: 'POST',
+                url: "/shop-images/",
+                data: {
+                    "product_id": product_id,
+                    "image_id": image_id,
+                    csrfmiddlewaretoken: token
+                },
+                success: function (response) {
+                    generate(response.data)
+                }
+            })
+        }
+
+    </script>
+
+{% endblock %}

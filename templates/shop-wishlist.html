@@ -1,0 +1,66 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+
+{% block content %}
+    <main class="main">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/" rel="nofollow">{% trans "Bosh sahifa" %}</a>
+                    <span></span> {% trans "Mahsulotlar" %}
+                    <span></span> {% trans "Sevimlilar" %}
+
+                </div>
+            </div>
+        </div>
+        <section class="mt-60 mb-60">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table shopping-summery text-center">
+                                <thead>
+                                <tr class="main-heading">
+                                    <th scope="col" colspan="2">{% trans "Mahsulot" %}</th>
+                                    <th scope="col">{% trans "Narx" %}</th>
+{#                                    <th scope="col">Stock Status</th>#}
+                                    <th scope="col">{% trans "O'chirish" %}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for item in wishlists %}
+                                    <tr>
+                                        <td class="image product-thumbnail"><img
+                                                src="{{ item.product.product_images.first.image.url }}"
+                                                alt="#"></td>
+                                        <td class="product-des product-name">
+                                            <p class="product-name"><a
+                                                    href="{% url "shop-details" item.product.id %}">{{ item.product.title }}</a></p>
+                                        </td>
+                                        <td class="price" data-title="Price"><span>{{ item.product.price_uzs|intcomma }} UZS</span></td>
+
+{#                                        <td class="text-right" data-title="Cart">#}
+{#                                            <a href="/order/create_order_wishlist/{{ item.product.id }}" class="btn btn-rounded btn-sm"><i#}
+{#                                                    class="far fa-shopping-bag mr-5"></i>Add#}
+{#                                                to cart#}
+{#                                            </a>#}
+{#                                        </td>#}
+
+                                        <td class="action" data-title="Remove">
+                                            <a href="/order/delete-wishlist/{{ item.id }}"><i
+                                                    class="fa fa-trash-alt"
+                                                    onclick="return confirm('{% trans "Siz rostdan ham ushbu mahsulotni o'chirmoqchimisiz" %}')"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

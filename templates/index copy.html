@@ -1,0 +1,519 @@
+﻿{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+{% load i18n %}
+
+{% block style %}
+    <style>
+        .sales {
+            margin-top: 0;
+        }
+
+        .buy {
+            border: 1px solid #0E1133;
+            border-radius: 20px;
+            padding: 10px 20px;
+        }
+
+        .buy:hover {
+            border: 1px solid #fff;
+            border-radius: 20px;
+            padding: 10px 20px;
+            color: white;
+            background-color: #0E1133;
+        }
+        .countdown-box {
+            position: relative;
+            bottom: 75px;
+            left: 30px;
+        }
+        .timer {
+            background-color: #0E1133;
+            margin: 10px;
+            padding: 7px 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 17px;
+        }
+        .double-dot {
+            margin-top: 15px;
+            color: #0E1133;
+            font-size: 17px;
+        }
+        .main__box{
+          width: 100%;
+        }
+        .main_block{
+            display: flex;
+            flex-wrap: wrap;
+            column-gap: 30px;
+            row-gap: 30px;
+            justify-content: flex-start;
+        }
+        .main__box-el{
+            width: 18%;
+
+        }
+   
+
+        .product-category_fz{
+            font-size: 12px;
+        }
+        .product-content-wrap_fz{
+            color: #000;
+        }
+        .product-content-wrap_fz:hover{
+            color: #0E1133;
+        }
+        
+
+
+    </style>
+{% endblock %}
+{% block content %}
+    <main class="main">
+        <section class="home-slider position-relative">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="position-relative">
+                            <div class="hero-slider-1 style-3 dot-style-1 dot-style-1-position-1">
+                                {% for banner in banners %}
+                                    <div class="single-hero-slider single-animation-wrap">
+                                        <div class="container">
+                                            <div class="slider-1-height-3 slider-animated-1">
+                                                <div class="hero-slider-content-2">
+                                                    {#                                                    <h4>{{ banner.desc|safe }}</h4>#}
+                                                    <a class="animated btn btn-default btn-rounded"
+                                                       href="{% url 'products_filter' %}"> {% trans "Sotib Olish" %} <i
+                                                            class="fa fa-arrow-right"></i> </a>
+                                                </div>
+                                                <div class="slider-img">
+                                                    <img src="{{ banner.image.url }}" alt="" width="1000px">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="slider-arrow hero-slider-1-arrow style-3"></div>
+                        </div>
+                    </div>
+                    <div style="padding-left: 0" class="col-lg-3 d-md-none d-lg-block">
+                        {% for foo in banner_discounts %}
+                            <div class="banner-img banner-1 wow fadeIn animated"
+                                 style="visibility: visible; animation-name: fadeIn; margin-bottom: 5px;">
+                                <a href="{% url 'shop-details' foo.product_id.id %}"><img class="border-radius-10" src="{{ foo.image.url }}"
+                                     alt="" height="450px" width="370px"></a>
+
+
+                                <div class="countdown-box">
+                                    <ul class="d-flex">
+                                        <li id="day" class="timer">00</li>
+                                        <li class="double-dot">:</li>
+                                        <li id="hour" class="timer">00</li>
+                                        <li class="double-dot">:</li>
+                                        <li id="min" class="timer">00</li>
+                                        <li class="double-dot">:</li>
+                                        <li id="sec" class="timer">00</li>
+                                    </ul>
+                                </div>
+                                <div style="padding: 0 15px; top: 60px" class="banner-text sales ms-2">
+
+{#                                    <h4 class="fs-8">{% trans "tejab qolish" %}#}
+{#                                        <br>{{ foo.title }}</h4>#}
+{#                                    <a class="buy"#}
+{#                                       href="{% url 'shop-details' foo.product_id.id %} ">{% trans "Sotib Olish" %}<i#}
+{#                                            class="fa fa-arrow-right"></i></a>#}
+
+                                    <div id="event-box" class="hidden">{{ foo.deadline|date:'M d, Y H:i:s' }}</div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="product-tabs pt-30 pb-30 wow fadeIn animated">
+            <div class="container">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link {% if status_index == 'featured' %}active{% endif %}" id="nav-tab-one"
+                                data-bs-toggle="tab" data-bs-target="#tab-one"
+                                type="button" role="tab" aria-controls="tab-one"
+                                aria-selected="true">{% trans "Maxsus" %}
+                        </button>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link {% if status_index == 'popular' %}active{% endif %}" href="/?status=popular"
+                           id="nav-tab-two"
+                           type="button">{% trans "Mashhurlar" %}
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link {% if status_index == 'top_rated' %}active{% endif %}"
+                           href="/?status=top_rated" id="nav-tab-three"
+                           type="button">{% trans "Eng Yaxshilar" %}
+                        </a>
+                    </li>
+                </ul>
+                <!--End nav-tabs-->
+                <div class="tab-content wow fadeIn animated main__box" id="myTabContent">
+                    <div class="tab-pane fade show active" id="tab-one" role="tabpanel" aria-labelledby="tab-one">
+                        <div class="main_block">
+                            {% for product in products %}
+                                <div class="main__box-el">
+                                    <div class="product-cart-wrap mb-30">
+                                        <div class="product-img-action-wrap">
+                                            <div class="product-img product-img-zoom">
+                                                <a href="{% url 'shop-details' product.id %}">
+                                                    <img class="default-img  default-img-size"
+                                                         src="{{ product.product_images.first.image.url }}" alt=""
+                                                         width="230px" height="230px">
+                                                    <img class="hover-img  default-img-size"
+                                                         src="{{ product.product_images.last.image.url }}" alt=""
+                                                         width="230px" height="230px">
+                                                </a>
+                                            </div>
+                                            <div class="product-badges product-badges-position product-badges-mrg">
+                                                <span class="{{ product.status.lower }}">{% if product.status %}{{ product.status }}{% endif %}</span>
+                                            </div>
+                                        </div>
+                                        <div class="product-content-wrap">
+                                            <div class="product-category">
+                                                <a  href="{% url 'shop-details' product.id %}">
+                                                    <span class="product-category_fz">{{ product.category.first }}</span></a>
+                                            </div>
+                                            <div>
+                                                <a href="{% url 'shop-details' product.id %}">
+                                                    <p class="product-content-wrap_fz">
+                                                    {{ product.title|slice:'0:25' }}
+                                                    </p>
+                                                </a>
+                                            </div>
+                                            
+
+                                            <div class="product-rate">
+                                                <div class="product-rating"
+                                                     style="width:{{ product.mid_rate_percent }}%"></div>
+                                            </div>
+                                            <div>
+                                                {% if product.percentage %}
+                                                    <span>
+                                                        <span>{{ product.percentage }}%</span>
+                                                    </span>
+                                                {% else %}
+                                                    <span>
+                                                        <span>{{ product.percentage }}%</span>
+                                                    </span>
+                                                {% endif %}
+                                            </div>
+                                            <div>
+                                            </div>
+                                            <div class="product-price">
+                                                {% if product.discount > 0 %}
+
+                                                    <span >{{ product.monthly_uzs }} {% trans "uzs" %} x {{ active_variant }} {% trans "oy" %}</span>
+                                                    <br>
+                                                    <span class="bg-warning new_price">UZS {{ product.discount_uzs|intcomma }} </span>
+                                                    <br>
+                                                    <span class="old-price">UZS {{ product.total_uzs|intcomma }}</span>
+                                                {% else %}
+                                                    <span>{{ product.monthly_uzs|intcomma }} {% trans "uzs" %} x {{ active_variant }} {% trans "oy" %}</span>
+                                                    <br>
+                                                    <span class="bg-warning new_price">UZS {{ product.total_uzs|intcomma }}</span>
+
+                                                {% endif %}
+                                            </div>
+                                            <div class="product-action-1 show" style="bottom: 15px; right: 25px;">
+                                                <a aria-label="Add To Cart" class="action-btn hover-up"
+                                                   href="{% url 'wishlist' product.id %}"><i style="padding-top: 5px"
+                                                                                             class="far fa-heart"></i></a>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <!--End product-grid-4-->
+                    </div>
+                </div>
+                <!--End tab-content-->
+            </div>
+        </section>
+        <section class="banner-2 pt-60 pb-60">
+            <div class="container">
+
+                {% for advertisement in advertisements %}
+                    <div class="banner-img banner-big wow fadeIn animated">
+                        <img src="{{ advertisement.banner_image.url }}" alt="" width="1296px">
+                        <div class="banner-text">
+                            <h4 class="text-white">{{ advertisement.title }}</h4>
+                            {#                            <p>{{ advertisement.description|safe }}</p>#}
+                            <br>
+                            <a href="/shop/?advertisement={{ advertisement }}" class="btn">{% trans "Batafsil" %} <i
+                                    class="fa fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </section>
+        <section class="product-tabs pt-30 pb-30 wow fadeIn animated">
+            <div class="container">
+                <ul class="nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="nav-tab-one" data-bs-toggle="tab" data-bs-target="#tab-one"
+                                type="button" role="tab" aria-controls="tab-one"
+                                aria-selected="true">{% trans "Maxsus" %}
+                        </button>
+                    </li>
+                </ul>
+                <!--End nav-tabs-->
+                <div class="tab-content wow fadeIn animated" id="myTabContent">
+                    <div class="tab-pane fade show active" id="tab-one" role="tabpanel" aria-labelledby="tab-one">
+                        <div class="row product-grid-4">
+                            {% for product in objects %}
+                                <div class="col-lg-3 col-md-6 col-12 col-sm-5">
+                                    <div class="product-cart-wrap mb-30">
+                                        <div class="product-img-action-wrap">
+                                            <div class="product-img product-img-zoom">
+                                                <a href="{% url 'shop-details' product.id %}">
+                                                    <img class="default-img"
+                                                         src="{{ product.product_images.first.image.url }}" alt=""
+                                                         width="270px" height="270px">
+                                                    <img class="hover-img"
+                                                         src="{{ product.product_images.first.image.url }}" alt=""
+                                                         width="270px" height="270px">
+                                                </a>
+                                            </div>
+                                            <div class="product-badges product-badges-position product-badges-mrg">
+                                                <span class="{{ product.status.lower }}">{{ product.status }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="product-content-wrap">
+                                            <div class="product-category">
+                                                <a href="{% url 'shop-details' product.id %}">{{ product.category.first }}</a>
+                                            </div>
+                                            <h2>
+                                                <a href="{% url 'shop-details' product.id %}">{{ product.title|slice:'0:25' }}</a>
+                                            </h2>
+                                            <div class="product-rate">
+                                                <div class="product-rating"
+                                                     style="width:{{ product.mid_rate_percent }}%"></div>
+                                            </div>
+                                            <div>
+                                                {% if product.percentage %}
+                                                    <span>
+                                                        <span>{{ product.percentage }}%</span>
+                                                    </span>
+                                                {% else %}
+                                                    <span>
+                                                        <span>{{ product.percentage }}%</span>
+                                                    </span>
+                                                {% endif %}
+                                            </div>
+                                            <div>
+                                            </div>
+                                            <div class="product-price">
+                                                {% if product.discount > 0 %}
+
+                                                    <span> {{ product.monthly_uzs|intcomma }} {% trans "uzs" %} x {{ active_variant }} {% trans "oy" %}</span><br>
+                                                    <span class="bg-warning new_price">UZS {{ product.discount_uzs|intcomma }}</span>
+                                                    <br>
+                                                    <span class="old-price">{{ product.monthly_uzs|intcomma }} {% trans "uzs" %} x {{ active_variant }} {% trans "oy" %}</span>
+                                                {% else %}
+                                                    <span>{{ product.monthly_uzs|intcomma }} {% trans "uzs" %} x {{ active_variant }} {% trans "oy" %}</span>
+                                                    <br>
+                                                    <span class="bg-warning new_price">UZS {{ product.total_uzs|intcomma }}</span>
+                                                {% endif %}
+                                            </div>
+                                            <div class="product-action-1 show">
+                                                <a aria-label="Add To Wishlist" class="action-btn hover-up"
+                                                   href="{% url 'wishlist' product.id %}"><i style="padding-top: 15px"
+                                                                                             class="far fa-heart"></i></a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <!--End product-grid-4-->
+                    </div>
+                </div>
+                <!--End tab-content-->
+            </div>
+        </section>
+        <section class="banner-2 pt-60 pb-60">
+            <div class="container">
+                {% for advertisement in last_advertisements %}
+                    <div class="banner-img banner-big wow fadeIn animated">
+                        <img src="{{ advertisement.banner_image.url }}" alt="" width="1296px">
+                        <div class="banner-text">
+                            <h4 class="text-white">{{ advertisement.title }}</h4>
+                            {#                            <p>{{ advertisement.description|safe }}</p>#}
+                            <br>
+                            <a href="/shop/?advertisement={{ advertisement }}" class="btn">{% trans "Batafsil" %} <i
+                                    class="fa fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                {% endfor %}
+
+            </div>
+        </section>
+
+        <section class="mtb-60">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        {% for discount in discounts %}
+                            <div class="banner-img banner-1 wow fadeIn animated mb-md-4">
+                                <img class="border-radius-10 ms-4" src="{{ discount.product_images.first.image.url }}"
+                                     alt="" height="320px" width="290px">
+                                <div style="padding: 0 15px; top: 60px" class="banner-text sales ms-4">
+                                    <a class="buy" href="{% url 'shop-details' discount.id %}">{% trans "Sotib olish" %}
+                                        <i class="fa fa-arrow-right"></i></a>
+
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title style-1 mb-30 wow fadeIn animated">{% trans "So'ngi Mahsulotlar" %}</h4>
+                        <div class="product-list-small wow fadeIn animated">
+                            {% for qs in last_products|slice:'0:3' %}
+                                <article class="row align-items-center mb-10">
+                                    <figure class="col-md-3 mb-0">
+                                        <a href="{% url 'shop-details' qs.id %}"><img
+                                                src="{{ qs.product_images.first.image.url }}"
+                                                alt=""></a>
+                                    </figure>
+                                    <div class="col-md-9 pl-0">
+                                        <h4 class="title-small mb-2">
+                                            <a href="{% url 'shop-details' qs.id %}">{{ qs.title|slice:'0:20' }}</a>
+                                        </h4>
+                                        <pre class="d-inline p-2"><code><i
+                                                class="fa fa-star-half-alt"></i> {% if qs.mid_rate %}
+                                            {{ qs.mid_rate }}{% else %}0.0{% endif %}</code></pre>
+                                        <pre class="d-inline p-2"><code><i
+                                                class="fa fa-eye"></i> {{ qs.view }}</code></pre>
+                                        <div class="product-price">
+                                            {% if qs.discount > 0 %}
+
+                                                <span>{{ qs.monthly_uzs|intcomma }} {% trans "uzs" %} x {{ active_variant }} {% trans "oy" %}</span>
+                                                <br>
+                                                <span class="bg-warning new_price">UZS {{ qs.discount_uzs|intcomma }}</span>
+                                                <br>
+                                                <span style="font-size: 12px"
+                                                      class="old-price">UZS {{ qs.total_uzs|intcomma }}</span>
+                                            {% else %}
+                                                <span>{{ qs.monthly_uzs|intcomma }} {% trans "uzs" %} x {{ active_variant }} {% trans "oy" %}</span>
+                                                <br>
+                                                <span class="bg-warning new_price">UZS {{ qs.total_uzs|intcomma }}</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </article>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title style-1 mb-30 wow fadeIn animated">{% trans "Eng Yaxshi Baholanganlar" %}</h4>
+                        <div class="product-list-small wow fadeIn animated">
+                            {% for trp in top_rate_products|slice:'0:3' %}
+                                <article class="row align-items-center mb-10">
+                                    <figure class="col-md-3 mb-0">
+                                        <a href="{% url 'shop-details' trp.id %}"><img
+                                                src="{{ trp.product_images.first.image.url }}"
+                                                alt=""></a>
+                                    </figure>
+                                    <div class="col-md-9 pl-0">
+                                        <h4 class="title-small mb-2">
+                                            <a href="{% url 'shop-details' trp.id %}">{{ trp.title|slice:'0:20' }}</a>
+                                        </h4>
+
+                                        <pre class="d-inline p-2"><code><i
+                                                class="fa fa-star-half-alt"></i> {% if trp.mid_rate %}
+                                            {{ trp.mid_rate }}{% else %}0.0{% endif %}</code></pre>
+
+                                        <pre class="d-inline p-2"><code><i
+                                                class="fa fa-eye"></i> {{ trp.view }}</code></pre>
+                                        <div class="product-price">
+                                            <div class="product-price">
+                                                {% if trp.discount > 0 %}
+                                                    <span>{{ trp.monthly_uzs|intcomma }} {% trans "uzs" %} x {{ active_variant }} {% trans "oy" %}</span>
+                                                    <br>
+                                                    <span class="bg-warning new_price">UZS {{ trp.discount_uzs|intcomma }}</span>
+                                                    <br>
+                                                    <span style="font-size: 12px"
+                                                          class="old-price">UZS {{ trp.total_uzs|intcomma }}</span>
+                                                {% else %}
+                                                    <span>{{ trp.monthly_uzs|intcomma }} {% trans "uzs" %} x {{ active_variant }} {% trans "oy" %}</span>
+                                                    <br>
+                                                    <span class="bg-warning new_price">{{ trp.total_uzs|intcomma }}</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                </article>
+
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title style-1 mb-30 wow fadeIn animated">{% trans "Mahsulotlarni Ko'rib Chiqish" %}</h4>
+                        <div class="product-list-small wow fadeIn animated">
+                            {% for top_viewed_product in top_viewed_products|slice:'0:3' %}
+                                <article class="row align-items-center mb-10">
+                                    <figure class="col-md-3 mb-0">
+                                        <a href="{% url 'shop-details' top_viewed_product.id %}"><img
+                                                src="{{ top_viewed_product.product_images.first.image.url }}"
+                                                alt=""></a>
+                                    </figure>
+                                    <div class="col-md-9 pl-0">
+
+                                        <h4 class="title-small mb-2">
+                                            <a href="{% url 'shop-details' top_viewed_product.id %}">{{ top_viewed_product.title|slice:'0:20' }}</a>
+                                        </h4>
+                                        <pre class="d-inline p-2"><code><i
+                                                class="fa fa-star-half-alt"></i> {% if top_viewed_product.mid_rate %}
+                                            {{ top_viewed_product.mid_rate }}{% else %}0.0{% endif %}</code></pre>
+                                        <pre class="d-inline p-2"><code><i
+                                                class="fa fa-eye"></i> {{ top_viewed_product.view }}</code></pre>
+                                        <div class="product-price">
+                                            <div class="product-price">
+                                                {% if top_viewed_product.discount > 0 %}
+
+                                                    <span>{{ top_viewed_product.monthly_uzs|intcomma }} {% trans "uzs" %} x {{ active_variant }} {% trans "oy" %}</span><br>
+                                                    <span class="bg-warning new_price">UZS {{ top_viewed_product.discount_uzs|intcomma }}</span>
+                                                    <br>
+                                                    <span style="font-size: 12px"
+                                                          class="old-price">UZS {{ top_viewed_product.total_uzs|intcomma }}</span>
+                                                {% else %}
+                                                    <span>{{ top_viewed_product.monthly_uzs|intcomma }} {% trans "uzs" %} x {{ active_variant }} {% trans "oy" %}</span>
+                                                    <br>
+                                                    <span class="bg-warning new_price">UZS {{ top_viewed_product.total_uzs|intcomma }}</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                </article>
+
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+{% endblock %}
+{% block script %}
+    <script src="{% static 'assets/js/calculate_price.js' %}"></script>
+{% endblock %}
