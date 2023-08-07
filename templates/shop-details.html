@@ -222,12 +222,12 @@
                                         <div class="detail-extralink">
                                             <div class="border radius">
                                                 {% csrf_token %}
-                                                <input class="prod_id" type="hidden" value="{{ product.id }}">
+                                                <input class="prod_id"  type="hidden" value="{{ product.id }}">
                                                 <input class="qty-input" type="number" min="1" value="1">
                                             </div>
                                             <div class="product-extra-link2">
                                                 <button style="border-radius: 30px" type="button"
-                                                        class="button button-add-to-cart addToCartBtn">{% trans "Savatchaga qo'shish" %}
+                                                        class="button button-add-to-cart addToCartBtn ">{% trans "Savatchaga qo'shish" %}
                                                 </button>
                                             </div>
 
@@ -397,7 +397,8 @@
                                                                 class="far fa-heart pt-10"></i></a>
                                                     </div>
                                                     <div class="product-badges product-badges-position product-badges-mrg">
-                                                        <span class="{{ product.status.lower }}">{% if product.status %}{{ product.status }}{% endif %}</span>
+                                                        <span class="{{ product.status.lower }}">{% if product.status %}
+                                                            {{ product.status }}{% endif %}</span>
                                                     </div>
                                                 </div>
                                                 <div class="product-content-wrap">
@@ -562,7 +563,6 @@
 
             {% endfor %}
         }
-
 
         function send_val(item_id, pro_id, price) {
             calculate({{ active_variant.duration }}, {{ active_variant.percent }}, price, "images", item_id)

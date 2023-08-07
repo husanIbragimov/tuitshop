@@ -130,7 +130,7 @@ class ProductImageAdmin(ImportExportModelAdmin):
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
-        return queryset.order_by('color__name', 'product__id', '-id').distinct("color__name", "product__id")
+        return queryset.order_by('color__name', 'product__id', '-id').distinct()
 
 
 admin.site.register(Category, CategoryAdmin)

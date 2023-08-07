@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from apps.base.models import Variant
 from apps.order.models import Cart, CartItem, Order, Wishlist
 from apps.product.models import Product, Rate, Color, Category, Size, ProductImage
+
 from bot.main import order_product
 import asyncio
 
@@ -78,7 +79,9 @@ def add_to_cart(request):
                 cart_item.product_image = product_image
                 cart_item.save()
 
-    return JsonResponse({"msg": "Savatchaga muvaffaqiyatli qo'shildi!", "status": True})
+        return JsonResponse({"msg": "Savatchaga muvaffaqiyatli qo'shildi!", "status": True})
+
+    return JsonResponse({"msg": "Only POST method allowed", "status": False})
 
 
 @login_required(login_url='/login')
@@ -86,6 +89,7 @@ def create_order(request, id):
     cart = get_object_or_404(Cart, id=id)
     cart_items = cart.cart_items.all()
     user = request.user
+
     order = Order.objects.create(
         user=user
     )
@@ -96,6 +100,7 @@ def create_order(request, id):
     cart.completed = True
     cart.save()
     data = []
+
     for i in cart_items:
         data.append(dict(
             user=request.user.username,
@@ -104,7 +109,8 @@ def create_order(request, id):
             variant=i.variant.duration,
             photo=i.product_image.image.url
         ))
-    asyncio.run(order_product(data))
+    if data:
+        asyncio.run(order_product(data))
 
     return redirect('/')
 
@@ -135,10 +141,10 @@ def confirm_order(request):
             variant=i.variant.duration,
             photo=i.product_image.image.url
         ))
-    asyncio.run(order_product(data))
+    if data:
+        asyncio.run(order_product(data))
 
     return redirect('/')
-
 
 
 @login_required(login_url='/login')
@@ -212,4 +218,3 @@ def create_order_wishlist(request, id):
     wishlist = Wishlist.objects.filter(session_id=session_id, product_id=id).delete()
     url = request.META.get('HTTP_REFERER')
     return redirect(url)
-

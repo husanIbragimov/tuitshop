@@ -16,15 +16,17 @@ $(".variant_class li").on("click", function () {
     variant = $(this).text();
 });
 
-$('.addToCartBtn').on('click', function () {
+$('.addToCartBtn').on('click', function (e) {
+    e.preventDefault();
     var product_id = $('.prod_id').val()
     var quantity = $('.qty-input').val()
     var token = $("input[name=csrfmiddlewaretoken]").val();
-
+	const extractDjangoLanguage = document.cookie.match(/django_language=([^;]+)/);
+	const currLanguage = extractDjangoLanguage !== null ? extractDjangoLanguage[1] : "ru"
 
     $.ajax({
         method: 'POST',
-        url: "/order/add-to-cart/",
+        url: `/${currLanguage}/order/add-to-cart/`,
         data: {
             "product_id": product_id,
             "quantity": quantity,
@@ -36,7 +38,7 @@ $('.addToCartBtn').on('click', function () {
         success: function (response) {
             if (response.status) {
                 alertify.success(response.msg)
-                location.reload();
+                document.location.reload();
             } else {
                 alertify.error(response.msg)
             }

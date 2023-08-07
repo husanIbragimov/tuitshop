@@ -1,17 +1,12 @@
 from django.contrib.auth.models import User
-from django.contrib.humanize.templatetags.humanize import intcomma
-from django.core.validators import validate_image_file_extension
 from django.db import models
 from ckeditor.fields import RichTextField
 from django.db.models import Avg
-from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from mptt.models import MPTTModel
-from apps.base.models import BaseAbstractDate
 from colorfield.fields import ColorField
-
-from apps.base.models import Variant
+from apps.base.models import Variant,BaseAbstractDate
 
 
 class BannerDiscount(BaseAbstractDate):

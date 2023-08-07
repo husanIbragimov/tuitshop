@@ -1,10 +1,10 @@
 import re
-
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
+from django.contrib import messages
+from apps.base.models import UserType, Resume
 
 
 # Create your views here.
@@ -22,7 +22,8 @@ def register(request):
         if not re.match(username_regex, username):
             if not re.match(username_regex2, username):
                 if not re.match(username_regex3, username):
-                    messages.warning(request, "Invalid phone number! The phone number must be +998994187100 characters!")
+                    messages.warning(request,
+                                     "Invalid phone number! The phone number must be +998994187100 characters!")
                     return redirect('register')
 
         user = User.objects.filter(username=username)
@@ -32,10 +33,11 @@ def register(request):
         else:
             if password1 == password2:
                 instance = User.objects.create_user(username=username, password=password1)
+                role = UserType.objects.create(user=instance)
                 user = authenticate(username=username, password=password1)
                 if user is not None:
                     login(request, user)
-                messages.success(request, 'Your account has been created!')
+                messages.success(request, 'Your users has been created!')
                 return redirect('/')
             else:
                 messages.warning(request, "Passwords do not match")
@@ -66,7 +68,7 @@ def logout_func(request):
 from urllib.parse import urlparse
 
 from django.conf import settings
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse, Http404
 from django.urls.base import resolve, reverse
 from django.urls.exceptions import Resolver404
 from django.utils import translation
@@ -101,3 +103,48 @@ def selectlanguage(request):
         request.session[translation.LANGUAGE_SESSION_KEY] = lang
         # return HttpResponse(lang)
         return HttpResponseRedirect("/" + lang)
+
+
+def resume_create(request):
+    if request.method == "POST":
+        last_name = request.POST.get('last_name')
+        first_name = request.POST.get('first_name')
+        birth_of_date = request.POST.get('age')
+        image = request.POST.get('image')
+        description = request.POST.get('description')
+        print(description)
+        github = request.POST.get("github")
+        linkedin = request.POST.get("linkedin")
+        telegram = request.POST.get("telegram")
+        cv = request.POST.get("cv")
+        specialist = request.POST.get('specialist')
+        link_job = request.POST.get('url of the work done')
+        resume = Resume.objects.filter(user_id=request.user.id)
+        print(github)
+        print(type(github))
+        if not resume:
+            if 'https://github' in github or github.count == 0:
+                print("git ok")
+            else:
+                messages.error(request, "Iltimos! Github Linkni To'gri Kiriting")
+                return redirect('resume-create')
+            if 'https://www.linkedin' in linkedin or linkedin.count == 0:
+                print("link ok")
+            else:
+                messages.error(request, "Iltimos! Linkedin Linkni To'gri Kiriting")
+                return redirect('resume-create')
+            if 'https://t.me/' in telegram or telegram.count == 0:
+                print("telegram ok")
+            else:
+                messages.error(request, "Iltimos! Telegram Linkni To'gri Kiriting")
+                return redirect('resume-create')
+
+            Resume.objects.create(last_name=last_name, first_name=first_name, birth_of_date=birth_of_date,
+                                  image=image,
+                                  description=description, github=github, linkedin=linkedin, telegram=telegram,
+                                  cv=cv,
+                                  specialist=specialist, link_job=link_job, user_id=request.user.id)
+            return JsonResponse({"msg": "Muffaqiyatli Yakunlandi", "status": False})
+        else:
+            return JsonResponse({"msg": "Sizning Resumangiz Yaratilgan", "status": False})
+    return render(request, 'resume-form.html')

@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+{% block content %}
+
+    <section class="resume-form">
+        <div class="container">
+            <form action="{% url 'resume-create' %}" method="POST" class="row pb-50 pt-3 gy-3">
+                {% csrf_token %}
+                <h1 class=" text-center fw-normal col-12">{% trans 'Resume' %}</h1>
+                <div class="col-md-6 col-12">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+                        <input type="text" name="first_name" class="form-control" placeholder="{% trans 'First name' %}"
+                               aria-label="First name"
+                               aria-describedby="first_name">
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="input-group">
+                        <span class="input-group-text" id="last_name"><i class="fas fa-user"></i></span>
+                        <input type="text" name="last_name" class="form-control" placeholder="{% trans 'Last name' %}"
+                               aria-label="Last Name"
+                               aria-describedby="last_name">
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="input-group">
+                        <span class="input-group-text" id="age"><i class="fas fa-calendar-alt"></i></span>
+                        <input type="date" name="age" class="form-control" placeholder="{% trans "Tug'lgan Kunigiz" %}"
+                               aria-label="Age"
+                               aria-describedby="Age">
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="input-group">
+                        <span class="input-group-text" id="image"><i class="far fa-image"></i></span>
+                        <input type="file" name="image" class="form-control" placeholder="Image"
+                               aria-label="Image"
+                               aria-describedby="image">
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="input-group">
+                        <span class="input-group-text" id="github"><i class="fab fa-github-square"></i></span>
+                        <input type="url" name="github" class="form-control" placeholder="{% trans 'Github' %}"
+                               aria-label="Github"
+                               aria-describedby="github">
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="input-group">
+                        <span class="input-group-text" id="linkedin"><i class="fab fa-linkedin"></i></span>
+                        <input type="url" name="linkedin" class="form-control" placeholder="{% trans 'Linkedin' %}"
+                               aria-label="Linkedin"
+                               aria-describedby="linkedin">
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="input-group">
+                        <span class="input-group-text" id="telegram"><i class="fab fa-telegram"></i></span>
+                        <input type="url" name="telegram" class="form-control" placeholder="{% trans 'Telegram' %}"
+                               aria-label="Telegram"
+                               aria-describedby="telegram">
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="input-group">
+                        <span class="input-group-text" id="cv"><i class="fas fa-file-alt"></i></span>
+                        <input type="file" name="cv" class="form-control" placeholder="CV"
+                               aria-label="CV"
+                               aria-describedby="cv">
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="input-group">
+                        <span class="input-group-text" id="specialist"><i class="fas fa-user-tie"></i></span>
+                        <input type="text" name="specialist" class="form-control" placeholder="{% trans 'Specialist' %}"
+                               aria-label="Specialist"
+                               aria-describedby="specialist">
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="input-group">
+                        <span class="input-group-text" id="url of the work done"><i class="fas fa-link"></i></span>
+                        <input type="url" name="url of the work done" class="form-control"
+                               placeholder="{% trans 'Url of the work done' %}"
+                               aria-label="Url of the work done"
+                               aria-describedby="url of the work done">
+                    </div>
+                </div>
+                <div class="col-12 form-control" contenteditable="true"
+                     style="overflow: auto; min-height: 300px; max-height: 800px"></div>
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                            <div class="alert alert-danger">
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+                <div>
+                    <button type="submit" class="btn btn-primary">{% trans 'Yuborish' %}</button>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}

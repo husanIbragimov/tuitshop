@@ -1,0 +1,481 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-08-05 20:41+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+#: core/settings.py:166
+msgid "English"
+msgstr ""
+
+#: core/settings.py:167
+msgid "Uzbek"
+msgstr ""
+
+#: core/settings.py:168
+msgid "Russian"
+msgstr ""
+
+#: templates/account.html:11 templates/base.html:460 templates/base.html:556
+#: templates/page-contact.html:20 templates/register.html:10
+#: templates/shop-cart.html:12 templates/shop-details.html:82
+#: templates/shop-wishlist.html:11 templates/shop.html:69
+msgid "Bosh sahifa"
+msgstr ""
+
+#: templates/account.html:12 templates/login.html:11 templates/register.html:11
+msgid "Sahifa"
+msgstr ""
+
+#: templates/account.html:13 templates/base.html:345
+msgid "Kabinet"
+msgstr ""
+
+#: templates/account.html:29
+msgid "Dashboard"
+msgstr ""
+
+#: templates/account.html:34 templates/account.html:67
+msgid "Buyurtma"
+msgstr ""
+
+#: templates/account.html:39
+msgid "Chiqish"
+msgstr ""
+
+#: templates/account.html:50
+msgid "Salom"
+msgstr ""
+
+#: templates/account.html:53
+msgid ""
+"Boshqaruv panelingiz orqali. Siz osonlik bilan so'ngi buyurtmalarni "
+"tekshirishingiz va ko'rishingiz mumkin"
+msgstr ""
+
+#: templates/account.html:60
+msgid "Sizning buyurtmalaringiz"
+msgstr ""
+
+#: templates/account.html:68
+msgid "Sana"
+msgstr ""
+
+#: templates/account.html:69
+msgid "Holati"
+msgstr ""
+
+#: templates/account.html:70 templates/shop-cart.html:90
+msgid "Umumiy"
+msgstr ""
+
+#: templates/account.html:71
+msgid "Soni"
+msgstr ""
+
+#: templates/account.html:72 templates/base.html:333
+msgid "Ko'rish"
+msgstr ""
+
+#: templates/base.html:211 templates/base.html:598
+msgid "Bizning joylashuv"
+msgstr ""
+
+#: templates/base.html:221
+#, python-format
+msgid "Eng yaxshi qurilmalarni 50%% chegirmagacha ol"
+msgstr ""
+
+#: templates/base.html:223 templates/index copy.html:256 copy.html:359
+#: templates/index.html:268 templates/index.html:378
+msgid "Batafsil"
+msgstr ""
+
+#: templates/base.html:225
+msgid "Super narxdagi kelishuvlar"
+msgstr ""
+
+#: templates/base.html:274
+msgid "Barcha bo'limlar"
+msgstr ""
+
+#: templates/base.html:284
+msgid "Qidirish"
+msgstr ""
+
+#: templates/base.html:323 templates/shop-wishlist.html:54
+msgid "Siz rostdan ham ushbu mahsulotni o'chirmoqchimisiz"
+msgstr ""
+
+#: templates/base.html:330 templates/shop-cart.html:31
+msgid "Jami"
+msgstr ""
+
+#: templates/base.html:334
+msgid "Tasdiqlash"
+msgstr ""
+
+#: templates/base.html:342
+msgid "Kirish/Ro'yxatdan o'tish"
+msgstr ""
+
+#: templates/base.html:362 templates/base.html:532 templates/shop.html:226
+msgid "Bo'limlar"
+msgstr ""
+
+#: templates/base.html:454
+msgid "Ko'proq"
+msgstr ""
+
+#: templates/base.html:466 templates/base.html:561 templates/base.html:692
+#: templates/shop-cart.html:13 templates/shop-wishlist.html:12
+#: templates/shop.html:70
+msgid "Mahsulotlar"
+msgstr ""
+
+#: templates/base.html:469 templates/base.html:564 templates/base.html:662
+#: templates/base.html:693 templates/page-contact.html:21
+#: templates/page-contact.html:46
+msgid "Aloqa"
+msgstr ""
+
+#: templates/base.html:575
+msgid "Til"
+msgstr ""
+
+#: templates/base.html:602
+msgid "Kirish / Ro'yxatdan o'tish"
+msgstr ""
+
+#: templates/base.html:633
+msgid "Yangiliklardan xabardor bo'lish"
+msgstr ""
+
+#: templates/base.html:643
+msgid "Emailingizni kiriting"
+msgstr ""
+
+#: templates/base.html:644
+msgid "A'zo bo'lish"
+msgstr ""
+
+#: templates/base.html:664
+msgid "Manzil"
+msgstr ""
+
+#: templates/base.html:670
+msgid "Jamoat transportlari"
+msgstr ""
+
+#: templates/base.html:674
+msgid "Tel"
+msgstr ""
+
+#: templates/base.html:677
+msgid "Ish vaqti"
+msgstr ""
+
+#: templates/base.html:679
+msgid "Kuzating"
+msgstr ""
+
+#: templates/base.html:689
+msgid "Biz haqimizda"
+msgstr ""
+
+#: templates/base.html:697
+msgid "Mening hisobim"
+msgstr ""
+
+#: templates/base.html:699 templates/login.html:12 templates/login.html:32
+#: templates/login.html:58 templates/register.html:62
+msgid "Kirish"
+msgstr ""
+
+#: templates/base.html:700
+msgid "Mening Savatcham"
+msgstr ""
+
+#: templates/base.html:701
+msgid "Yoqtirganlarim"
+msgstr ""
+
+#: templates/index copy.html:88 templates/index.html:96
+msgid "Sotib Olish"
+msgstr ""
+
+#: templates/index copy.html:145 copy.html:270 templates/index.html:155
+#: templates/index.html:282 templates/index.html:393
+msgid "Maxsus"
+msgstr ""
+
+#: templates/index copy.html:150 templates/index.html:160
+msgid "Mashhurlar"
+msgstr ""
+
+#: templates/index copy.html:156 templates/index.html:166
+msgid "Eng Yaxshilar"
+msgstr ""
+
+#: templates/index copy.html:216 copy.html:222 copy.html:323 copy.html:326
+#: copy.html:328 copy.html:408 copy.html:415 copy.html:450 copy.html:457
+#: copy.html:493 copy.html:499 templates/index.html:228
+#: templates/index.html:234 templates/index.html:341 templates/index.html:345
+#: templates/index.html:347 templates/index.html:452 templates/index.html:456
+#: templates/index.html:458 templates/index.html:521 templates/index.html:528
+#: templates/index.html:563 templates/index.html:570 templates/index.html:606
+#: templates/index.html:613 templates/shop-details.html:415
+#: templates/shop-details.html:423 templates/shop-details.html:455
+#: templates/shop-details.html:459 templates/shop.html:131
+#: templates/shop.html:137 templates/shop.html:271 templates/shop.html:275
+#: templates/shop.html:307 templates/shop.html:311
+msgid "uzs"
+msgstr ""
+
+#: templates/index copy.html:216 copy.html:222 copy.html:323 copy.html:326
+#: copy.html:328 copy.html:408 copy.html:415 copy.html:450 copy.html:457
+#: copy.html:493 copy.html:499 templates/index.html:228
+#: templates/index.html:234 templates/index.html:341 templates/index.html:345
+#: templates/index.html:347 templates/index.html:452 templates/index.html:456
+#: templates/index.html:458 templates/index.html:521 templates/index.html:528
+#: templates/index.html:563 templates/index.html:570 templates/index.html:606
+#: templates/index.html:613 templates/shop-cart.html:56
+#: templates/shop-details.html:212 templates/shop-details.html:415
+#: templates/shop-details.html:423 templates/shop-details.html:455
+#: templates/shop-details.html:459 templates/shop.html:131
+#: templates/shop.html:137 templates/shop.html:271 templates/shop.html:275
+#: templates/shop.html:307 templates/shop.html:311
+msgid "oy"
+msgstr ""
+
+#: templates/index copy.html:378 templates/index.html:491
+#: templates/shop.html:337
+msgid "Sotib olish"
+msgstr ""
+
+#: templates/index copy.html:387 templates/index.html:500
+msgid "So'ngi Mahsulotlar"
+msgstr ""
+
+#: templates/index copy.html:427 templates/index.html:540
+msgid "Eng Yaxshi Baholanganlar"
+msgstr ""
+
+#: templates/index copy.html:470 templates/index.html:583
+msgid "Mahsulotlarni Ko'rib Chiqish"
+msgstr ""
+
+#: templates/login.html:38
+msgid "Telefon Raqamingiz"
+msgstr ""
+
+#: templates/login.html:42 templates/register.html:47
+msgid "Parol"
+msgstr ""
+
+#: templates/login.html:50
+msgid "Meni eslab qol"
+msgstr ""
+
+#: templates/login.html:53 templates/register.html:12
+#: templates/register.html:55
+msgid "Ro'yxatdan o'tish"
+msgstr ""
+
+#: templates/page-contact.html:53
+msgid "Ism"
+msgstr ""
+
+#: templates/page-contact.html:58
+msgid "Familiya"
+msgstr ""
+
+#: templates/page-contact.html:63 templates/register.html:43
+msgid "Telefon raqam"
+msgstr ""
+
+#: templates/page-contact.html:69 templates/shop-details.html:315
+msgid "Izoh qoldirish"
+msgstr ""
+
+#: templates/register.html:34
+msgid "Hisob yaratish"
+msgstr ""
+
+#: templates/register.html:37
+msgid ""
+"Sizning shaxsiy ma'lumotlaringiz bu vaqt davomida tajribangizni qo'llab-"
+"quvvatlash uchun ishlatiladi veb-sayt, hisobingizga kirishni boshqarish va "
+"tavsiflangan boshqa maqsadlar uchun maxfiylik siyosatimizda"
+msgstr ""
+
+#: templates/register.html:51
+msgid "Parolni tasdiqlash"
+msgstr ""
+
+#: templates/register.html:62
+msgid "Allaqachon ro'yxatdan o'tkanmisiz"
+msgstr ""
+
+#: templates/shop-cart.html:14
+msgid "Sizning savatchangiz"
+msgstr ""
+
+#: templates/shop-cart.html:26
+msgid "Rasm"
+msgstr ""
+
+#: templates/shop-cart.html:27
+msgid "Nomi"
+msgstr ""
+
+#: templates/shop-cart.html:28
+msgid "Narxi"
+msgstr ""
+
+#: templates/shop-cart.html:29
+msgid "Miqdori"
+msgstr ""
+
+#: templates/shop-cart.html:30
+msgid "Muddati"
+msgstr ""
+
+#: templates/shop-cart.html:32 templates/shop-wishlist.html:29
+msgid "O'chirish"
+msgstr ""
+
+#: templates/shop-cart.html:64
+msgid "Rostdan ham ushbu mahsulotni o'chirmoqchimisiz?"
+msgstr ""
+
+#: templates/shop-cart.html:73
+msgid "Savatchani yangilash"
+msgstr ""
+
+#: templates/shop-cart.html:75
+msgid "Davom etish"
+msgstr ""
+
+#: templates/shop-cart.html:84
+msgid "Jami Savatcha"
+msgstr ""
+
+#: templates/shop-cart.html:109
+msgid "Buyurtmani tasdiqlash"
+msgstr ""
+
+#: templates/shop-cart.html:114
+msgid "Hoziroq oling"
+msgstr ""
+
+#: templates/shop-cart.html:130
+msgid "Telefon raqamingizni kiriting"
+msgstr ""
+
+#: templates/shop-cart.html:141
+msgid "Bekor qilish"
+msgstr ""
+
+#: templates/shop-cart.html:143
+msgid "Yuborish"
+msgstr ""
+
+#: templates/shop-details.html:117
+msgid "Brand"
+msgstr ""
+
+#: templates/shop-details.html:126
+msgid "Izohlar"
+msgstr ""
+
+#: templates/shop-details.html:133 templates/shop-details.html:148
+#: templates/shop-details.html:199
+msgid "Bo'lib to'lash"
+msgstr ""
+
+#: templates/shop-details.html:139 templates/shop-details.html:154
+#: templates/shop-wishlist.html:27
+msgid "Narx"
+msgstr ""
+
+#: templates/shop-details.html:167
+msgid "Rang"
+msgstr ""
+
+#: templates/shop-details.html:189
+msgid "O'lcham"
+msgstr ""
+
+#: templates/shop-details.html:230
+msgid "Savatchaga qo'shish"
+msgstr ""
+
+#: templates/shop-details.html:244
+msgid "Tafsilotlar"
+msgstr ""
+
+#: templates/shop-details.html:248
+msgid "Qo'shimcha ma'lumotlar"
+msgstr ""
+
+#: templates/shop-details.html:252
+msgid "Baholar"
+msgstr ""
+
+#: templates/shop-details.html:281
+msgid "Xaridorlar fikri"
+msgstr ""
+
+#: templates/shop-details.html:354
+msgid "Izoh yozish"
+msgstr ""
+
+#: templates/shop-details.html:362
+msgid "Saqlash"
+msgstr ""
+
+#: templates/shop-details.html:376
+msgid "O'xshash Mahsulotlar"
+msgstr ""
+
+#: templates/shop-details.html:441
+msgid "So'ngi mahsulotlar"
+msgstr ""
+
+#: templates/shop-wishlist.html:13
+msgid "Sevimlilar"
+msgstr ""
+
+#: templates/shop-wishlist.html:26
+msgid "Mahsulot"
+msgstr ""
+
+#: templates/shop.html:257
+msgid "Eng ko'p ko'rilgan mahsulotlar"
+msgstr ""
+
+#: templates/shop.html:292
+msgid "Eng yaxshi baholanganlar"
+msgstr ""
+
+#: templates/shop.html:335
+msgid "Tejab qolish"
+msgstr ""
+
+#: templates/shop.html:348
+msgid "Ishlab chiqaruvchilar"
+msgstr ""

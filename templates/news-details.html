@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+    <section class="blog-detail">
+        <div class="container">
+            <div class="blog-detail__wrapper">
+                <div class="blog-detail__banner"><img
+                        src="{{ news.images.url }}"
+                        alt="CodeKaplan"></div>
+                <div class="blog-detail__body">
+                    <div class="blog-detail__title"><h3 class="title">{{ news.title }}</h3></div>
+                    <div class="blog-detail__author"><h4><span
+                            class="text-grey-4">Published: </span>{{ news.created_at|date:"d.m.Y" }}</h4></div>
+                    <div class="blog-detail__content">{{ news.description |safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

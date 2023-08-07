@@ -185,6 +185,7 @@ def shop_details(request, id):
     active_variant = variants.last()
     total = image_objects.first().price_uzs + ((active_variant.percent * image_objects.first().price_uzs) / 100)
     monthly = total / active_variant.duration
+
     context = {
         'form': form,
         "colors": colors,

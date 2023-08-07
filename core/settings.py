@@ -25,7 +25,7 @@ SECRET_KEY = '&$1yklh)i_q*dt*#c@cuoet$zvpd(_(b2zznh!q940)uv3_h=n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -56,9 +56,10 @@ INSTALLED_APPS = [
     'apps.contact',
     'apps.order',
     'apps.product',
+
 ]
 
-# AUTH_USER_MODEL = 'base.User'
+# AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -105,7 +106,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-
+#
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -118,8 +119,8 @@ DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': "tuitshop",
-#         'USER': "tuitshop",
-#         'PASSWORD': "tuitshop",
+#         'USER': "postgres",
+#         'PASSWORD': "1",
 #         'HOST': 'localhost',
 #         'PORT': 5432,
 #     }
@@ -184,7 +185,7 @@ MODELTRANSLATION_TRANSLATION_FILES = (
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
@@ -192,7 +193,7 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -266,3 +267,5 @@ CKEDITOR_CONFIGS = {
         ]),
     }
 }
+
+
