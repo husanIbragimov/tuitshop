@@ -63,7 +63,7 @@ const minBox = document.getElementById('min');
 const secBox = document.getElementById('sec');
 // console.log(eventBox.textContent);
 
-const evenDate = Date.parse(eventBox.textContent);
+const evenDate = eventBox ? Date.parse(eventBox.textContent) : null;
 // console.log(evenDate);
 
 setInterval(() => {

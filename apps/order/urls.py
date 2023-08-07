@@ -3,7 +3,7 @@ from apps.order.views import add_to_cart, review, shop_cart, delete_cart_item, c
     wishlist_list, create_order_wishlist, account, confirm_order
 
 urlpatterns = [
-    path('my-account/', account, name="my-account"),
+    path('my-users/', account, name="my-users"),
     path('add-to-cart/', add_to_cart, name="add-to-cart"),
     path('shop-cart/', shop_cart, name="shop-cart"),
     path('create-order/<int:id>', create_order, name="create-order"),

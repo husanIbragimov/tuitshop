@@ -1,3 +1,4 @@
+from ckeditor.fields import RichTextField
 from django.db import models
 
 from apps.base.models import BaseAbstractDate
@@ -38,3 +39,13 @@ class Subscribe(BaseAbstractDate):
 
     def __str__(self):
         return f'{self.id}'
+
+
+class News(BaseAbstractDate):
+    title = models.CharField(max_length=255, null=True, blank=True)
+    images = models.ImageField(upload_to='news/', null=True, blank=True)
+    short_description = models.TextField(null=True, blank=True)
+    description = RichTextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.title

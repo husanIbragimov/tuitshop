@@ -48,6 +48,7 @@ urlpatterns = [
     path('register/', views.register, name="register"),
     path('login/', views.login_func, name="login"),
     path('logout/', views.logout_func, name="logout"),
+    path('resume/', views.resume_create, name="resume-create"),
 
 
 
@@ -55,7 +56,7 @@ urlpatterns = [
 )
 
 if settings.DEBUG:
-    # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 handler404 = "core.errors.page_not_found_view"

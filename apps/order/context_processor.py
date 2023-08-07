@@ -9,7 +9,7 @@ from ..product.models import Currency, Category, Product
 
 
 def cart_renderer(request):
-    currency = Currency.objects.last()
+    currency = Currency.objects.first()
     categories = Category.objects.filter(is_active=True)
     sbb = request.POST.get('sbb')
     subscribe = Subscribe.objects.filter(email=sbb)

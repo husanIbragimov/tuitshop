@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from django.db import models
-
 from apps.base.models import BaseAbstractDate, Variant
 from apps.product.models import Product, Color, Size, ProductImage
 
