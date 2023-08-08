@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-15 12:32+0500\n"
+"POT-Creation-Date: 2023-08-05 20:41+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,19 +17,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-#: core/settings.py:167
+#: core/settings.py:166
 msgid "English"
 msgstr ""
 
-#: core/settings.py:168
+#: core/settings.py:167
 msgid "Uzbek"
 msgstr ""
 
-#: core/settings.py:169
+#: core/settings.py:168
 msgid "Russian"
 msgstr ""
 
-#: templates/account.html:11 templates/base.html:446 templates/base.html:540
+#: templates/account.html:11 templates/base.html:460 templates/base.html:556
 #: templates/page-contact.html:20 templates/register.html:10
 #: templates/shop-cart.html:12 templates/shop-details.html:82
 #: templates/shop-wishlist.html:11 templates/shop.html:69
@@ -40,7 +40,7 @@ msgstr ""
 msgid "Sahifa"
 msgstr ""
 
-#: templates/account.html:13 templates/base.html:331
+#: templates/account.html:13 templates/base.html:345
 msgid "Kabinet"
 msgstr ""
 
@@ -86,126 +86,130 @@ msgstr ""
 msgid "Soni"
 msgstr ""
 
-#: templates/account.html:72 templates/base.html:319
+#: templates/account.html:72 templates/base.html:333
 msgid "Ko'rish"
 msgstr ""
 
-#: templates/base.html:198 templates/base.html:582
+#: templates/base.html:211 templates/base.html:598
 msgid "Bizning joylashuv"
 msgstr ""
 
-#: templates/base.html:208
+#: templates/base.html:221
 #, python-format
 msgid "Eng yaxshi qurilmalarni 50%% chegirmagacha ol"
 msgstr ""
 
-#: templates/base.html:210 templates/index copy.html:256 copy.html:359
+#: templates/base.html:223 templates/index copy.html:256 copy.html:359
 #: templates/index.html:268 templates/index.html:378
 msgid "Batafsil"
 msgstr ""
 
-#: templates/base.html:212
+#: templates/base.html:225
 msgid "Super narxdagi kelishuvlar"
 msgstr ""
 
-#: templates/base.html:260
+#: templates/base.html:274
 msgid "Barcha bo'limlar"
 msgstr ""
 
-#: templates/base.html:270
+#: templates/base.html:284
 msgid "Qidirish"
 msgstr ""
 
-#: templates/base.html:309 templates/shop-wishlist.html:54
+#: templates/base.html:323 templates/shop-wishlist.html:54
 msgid "Siz rostdan ham ushbu mahsulotni o'chirmoqchimisiz"
 msgstr ""
 
-#: templates/base.html:316 templates/shop-cart.html:31
+#: templates/base.html:330 templates/shop-cart.html:31
 msgid "Jami"
 msgstr ""
 
-#: templates/base.html:320
+#: templates/base.html:334
 msgid "Tasdiqlash"
 msgstr ""
 
-#: templates/base.html:328
+#: templates/base.html:342
 msgid "Kirish/Ro'yxatdan o'tish"
 msgstr ""
 
-#: templates/base.html:348 templates/base.html:516 templates/shop.html:226
+#: templates/base.html:362 templates/base.html:532 templates/shop.html:226
 msgid "Bo'limlar"
 msgstr ""
 
-#: templates/base.html:440
+#: templates/base.html:454
 msgid "Ko'proq"
 msgstr ""
 
-#: templates/base.html:452 templates/base.html:545 templates/base.html:668
+#: templates/base.html:466 templates/base.html:561 templates/base.html:692
 #: templates/shop-cart.html:13 templates/shop-wishlist.html:12
 #: templates/shop.html:70
 msgid "Mahsulotlar"
 msgstr ""
 
-#: templates/base.html:455 templates/base.html:548 templates/base.html:645
-#: templates/base.html:669 templates/page-contact.html:21
+#: templates/base.html:469 templates/base.html:564 templates/base.html:662
+#: templates/base.html:693 templates/page-contact.html:21
 #: templates/page-contact.html:46
 msgid "Aloqa"
 msgstr ""
 
-#: templates/base.html:559
+#: templates/base.html:575
 msgid "Til"
 msgstr ""
 
-#: templates/base.html:586
+#: templates/base.html:602
 msgid "Kirish / Ro'yxatdan o'tish"
 msgstr ""
 
-#: templates/base.html:617
+#: templates/base.html:633
 msgid "Yangiliklardan xabardor bo'lish"
 msgstr ""
 
-#: templates/base.html:627
+#: templates/base.html:643
 msgid "Emailingizni kiriting"
 msgstr ""
 
-#: templates/base.html:628
+#: templates/base.html:644
 msgid "A'zo bo'lish"
 msgstr ""
 
-#: templates/base.html:647
+#: templates/base.html:664
 msgid "Manzil"
 msgstr ""
 
-#: templates/base.html:650
+#: templates/base.html:670
+msgid "Jamoat transportlari"
+msgstr ""
+
+#: templates/base.html:674
 msgid "Tel"
 msgstr ""
 
-#: templates/base.html:653
+#: templates/base.html:677
 msgid "Ish vaqti"
 msgstr ""
 
-#: templates/base.html:655
+#: templates/base.html:679
 msgid "Kuzating"
 msgstr ""
 
-#: templates/base.html:665
+#: templates/base.html:689
 msgid "Biz haqimizda"
 msgstr ""
 
-#: templates/base.html:673
+#: templates/base.html:697
 msgid "Mening hisobim"
 msgstr ""
 
-#: templates/base.html:675 templates/login.html:12 templates/login.html:32
+#: templates/base.html:699 templates/login.html:12 templates/login.html:32
 #: templates/login.html:58 templates/register.html:62
 msgid "Kirish"
 msgstr ""
 
-#: templates/base.html:676
+#: templates/base.html:700
 msgid "Mening Savatcham"
 msgstr ""
 
-#: templates/base.html:677
+#: templates/base.html:701
 msgid "Yoqtirganlarim"
 msgstr ""
 

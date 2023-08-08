@@ -175,6 +175,19 @@
             }
         }
 
+        .google-map {
+            padding-bottom: 50%;
+            position: relative;
+        }
+
+        .google-map iframe {
+            height: 100%;
+            width: 100%;
+            left: 0;
+            top: 0;
+            position: absolute;
+        }
+
     </style>
 
 </head>
@@ -193,9 +206,9 @@
                 <div class="col-xl-3 col-lg-4">
                     <div class="header-info">
                         <ul>
-                            <li><a href="tel:+99899-418-7100">+998 71 238 64 15</a></li>
+                            <li><a href="tel:+998883338803">+998 88 333 88 03</a></li>
                             <li><i class="fa fa-map-marker-alt mr-5"></i><a target="_blank"
-                                                                            href="/">{% trans 'Bizning joylashuv' %}</a>
+                                                                            href="https://goo.gl/maps/xsPca2K7Rn9nmib76">{% trans 'Bizning joylashuv' %}</a>
                             </li>
                         </ul>
                     </div>
@@ -237,9 +250,12 @@
                                     style="padding: 12px 10px">
                                 {% if language.code == 'uz' %}
                                     <img src="{% static '' %}assets/uz.png" alt="" width="20px">
-                                {% else %}
+                                {% elif language.code == 'ru' %}
                                     <img src="{% static '' %}assets/ru.png" alt="" width="20px">
+                                {% else %}
+                                    <img src="{% static '' %}assets/en.png" alt="" width="20px">
                                 {% endif %}{{ language.code }}
+
                             </button>
                         {% endfor %}
                         {#                        </ul>#}
@@ -252,7 +268,8 @@
         <div class="container">
             <div class="header-wrap header-space-between">
                 <div class="logo logo-width-1">
-                    <a href="/"><img class="w-25 h-25" src="{% static 'assets/imgs/theme/tuitlogo.png' %}" alt="logo"></a>
+                    <a href="/"><img class="w-25 h-25" src="{% static 'assets/imgs/theme/tuitlogo.png' %}"
+                                     alt="logo"></a>
                 </div>
                 <div class="search-style-2">
                     <form action="{% url 'products_filter' %}" method="get">
@@ -328,7 +345,7 @@
                                     <p><a href="{% url 'register' %}">{% trans "Kirish/Ro'yxatdan o'tish" %}</a></p>
                                 </a>
                             {% else %}
-                                <p><a href="{% url 'my-account' %}">{% trans "Kabinet" %}</a></p>
+                                <p><a href="{% url 'my-users' %}">{% trans "Kabinet" %}</a></p>
                             {% endif %}
                         </div>
                     </div>
@@ -340,7 +357,7 @@
         <div class="container">
             <div class="header-wrap header-space-between position-relative main-nav">
                 <div class="logo logo-width-1 d-block d-lg-none">
-                    <a href="/"><img src="{% static 'assets/imgs/theme/whitechokoicon.png' %}"
+                    <a href="/"><img src="{% static 'assets/imgs/theme/tuitlogo.png' %}" style="width: 50px"
                                      alt="logo"></a>
                 </div>
                 <div class="main-categori-wrap d-none d-lg-block">
@@ -449,10 +466,13 @@
                             {##}
                             {#                                <a href="{% url 'about' %}">{% trans "Biz haqimizda" %}</a>#}
                             {#                            </li>#}
-                            <li><a href="{% url 'products_filter' %}">{% trans "Mahsulotlar" %}</a>
+                            <li><a href="{% url 'products_filter' %}">{% trans "TUIT-brend" %}</a>
                             </li>
                             <li>
                                 <a href="{% url 'contact' %}">{% trans "Aloqa" %}</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'news-list' %}">{% trans "Yangiliklar" %}</a>
                             </li>
 
                             {#                            <li><a href="#">My Account</a></li>#}
@@ -462,7 +482,8 @@
                 </div>
                 <div class="hotline d-none d-lg-block">
                     <p><i style="font-size: 25px" class="fa fa-phone-alt"></i><span></span><a
-                            style="text-decoration: none; font-size: 15px" href="tel:++998712386415">+998 (71) 238 64 15</a></p>
+                            style="text-decoration: none; font-size: 15px" href="tel:+998883338803">+998 88 333 88 03
+                    </a></p>
                 </div>
                 <div class="header-action-right d-block d-lg-none">
                     <div class="header-action-2">
@@ -494,7 +515,8 @@
     <div class="mobile-header-wrapper-inner">
         <div class="mobile-header-top">
             <div class="mobile-header-logo">
-                <a href="/"><img src="{% static 'assets/imgs/theme/blackchokoicon.png' %}" alt="logo"></a>
+                <a href="/"><img src="{% static 'assets/imgs/theme/tuitlogo.png' %}" style="width: 50px"
+                ></a>
             </div>
             <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
                 <button class="close-style search-close">
@@ -588,7 +610,7 @@
                 </div>
 
                 <div class="single-mobile-header-info">
-                    <a href="tel:+998712386415">+998 71 238 64 15 </a>
+                    <a href="tel:+998883338803">+998 88 333 88 03 </a>
                 </div>
             </div>
             <div class="mobile-social-icon">
@@ -639,12 +661,17 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="widget-about font-md mb-md-5">
                         <div class="logo logo-width-1 wow fadeIn animated">
-                            <a href="/"><img class="w-25 h-25" src="{% static 'assets/imgs/theme/tuitlogo.png' %}"
+                            <a href="/"><img class="w-25 h-25 "
+                                             src="{% static 'assets/imgs/theme/tuitlogo.png' %}"
                                              alt="logo"></a>
                         </div>
                         <h4 class="mt-20 mb-10 fw-600 text-grey-4 wow fadeIn animated">{% trans "Aloqa" %}</h4>
                         <p class="wow fadeIn animated">
-                            <strong>{% trans "Manzil" %}: </strong>Toshkent, Amir Temur shox ko‘chasi 108 uy
+                            <strong>{% trans "Manzil" %}: </strong>Toshkent 100084, Amir Temur shox ko‘chasi 108 uy </p>
+
+                        <p class="wow fadeIn animated">
+                            <strong>{% trans "Jamoat transportlari" %}:10, 17, 19, 24, 38, 51, 60, 67, 72, 93, 115,
+                                140</strong>
                         </p>
                         <p class="wow fadeIn animated">
                             <strong>{% trans "Tel" %}: </strong>+998 71 238 64 15
@@ -669,6 +696,7 @@
                         <li><a href="{% url 'contact' %}">{% trans "Aloqa" %}</a></li>
                     </ul>
                 </div>
+
                 <div class="col-lg-2  col-md-3">
                     <h5 class="widget-title mb-30 wow fadeIn animated">{% trans "Mening hisobim" %}</h5>
                     <ul class="footer-list wow fadeIn animated">
@@ -677,6 +705,13 @@
                         <li><a href="{% url 'wishlist' %}">{% trans "Yoqtirganlarim" %}</a></li>
 
                     </ul>
+                </div>
+				<div class="col-lg-2  col-md-3">
+                    <h5 class="widget-title mb-30 wow fadeIn animated">{% trans "Bizning manzil" %}</h5>
+                    <div class="google-map">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2995.5297696992643!2d69.28462621492558!3d41.34083750684348!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b534175ed31%3A0x52a8f9d9414a2ad8!2sAlxorazmiy%20Nomidagi%20Toshkent%20axborot%20texnologiyalari%20universiteti!5e0!3m2!1suz!2s!4v1643703529107!5m2!1suz!2s"
+                                    style="width: 400px; height: 400px" allowfullscreen="" loading="lazy" class="xarita"></iframe>
+                        </div>
                 </div>
             </div>
         </div>

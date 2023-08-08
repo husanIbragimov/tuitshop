@@ -1,6 +1,8 @@
 from .models import Product, Advertisement, Category, Banner, Brand, AdditionalInfo
 from modeltranslation.translator import TranslationOptions, register
 
+from ..contact.models import News
+
 
 @register(Product)
 class ProductTranslationOptions(TranslationOptions):
@@ -30,3 +32,8 @@ class BrandTranslationOptions(TranslationOptions):
 @register(AdditionalInfo)
 class AdditionalInfoTranslationOptions(TranslationOptions):
     fields = ('title', 'description')
+
+
+@register(News)
+class BrandTranslationOptions(TranslationOptions):
+    fields = ('title', 'description', 'short_description')
