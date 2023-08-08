@@ -112,10 +112,11 @@ f{% block style %}
                         {% for foo in banner_discounts %}
                             <div class="banner-img banner-1 wow fadeIn animated"
                                  style="visibility: visible; animation-name: fadeIn; margin-bottom: 5px;">
-                                <a href="{% url 'shop-details' foo.product_id.id %}"><img class="border-radius-10"
-                                                                                          src="{{ foo.image.url }}"
-                                                                                          alt="" height="450px"
-                                                                                          width="370px"></a>
+                                <a href="{% url 'shop-details' foo.product_id.id %}">
+                                    <img  class="border-radius-10"
+                                         src="{{ foo.image.url }}"
+                                         alt="" height="450px"
+                                         width="370px"></a>
 
 
                                 <div class="countdown-box">
@@ -260,9 +261,9 @@ f{% block style %}
 
                 {% for advertisement in advertisements %}
                     <div class="banner-img banner-big wow fadeIn animated">
-                        <img src="{{ advertisement.banner_image.url }}" alt="" width="1296px">
-                        <div class="banner-text">
-                            <h4 class="text-white">{{ advertisement.title }}</h4>
+                        <img src="{{ advertisement.banner_image.url }}" alt="" width="300px">
+                        <div style="display: grid; gap: 60px" class="banner-text">
+                            <h4 class="text-black">{{ advertisement.title }}</h4>
                             {#                            <p>{{ advertisement.description|safe }}</p>#}
                             <br>
                             <a href="/shop/?advertisement={{ advertisement }}" class="btn">{% trans "Batafsil" %} <i
@@ -275,14 +276,14 @@ f{% block style %}
         </section>
         <section class="product-tabs pt-30 pb-30 wow fadeIn animated">
             <div class="container">
-                <ul class="nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="nav-tab-one" data-bs-toggle="tab" data-bs-target="#tab-one"
-                                type="button" role="tab" aria-controls="tab-one"
-                                aria-selected="true">{% trans "Maxsus" %}
-                        </button>
-                    </li>
-                </ul>
+{#                <ul class="nav-tabs" id="myTab" role="tablist">#}
+{#                    <li class="nav-item" role="presentation">#}
+{#                        <button class="nav-link" id="nav-tab-one" data-bs-toggle="tab" data-bs-target="#tab-one"#}
+{#                                type="button" role="tab" aria-controls="tab-one"#}
+{#                                aria-selected="true">{% trans "Maxsus" %}#}
+{#                        </button>#}
+{#                    </li>#}
+{#                </ul>#}
                 <!--End nav-tabs-->
                 <div class="tab-content wow fadeIn animated main__box" id="myTabContent">
                     <div class="tab-pane fade show active" id="tab-one" role="tabpanel" aria-labelledby="tab-one">

@@ -109,8 +109,8 @@ def create_order(request, id):
             variant=i.variant.duration,
             photo=i.product_image.image.url
         ))
-    if data:
-        asyncio.run(order_product(data))
+    # if data:
+        # asyncio.run(order_product(data))
 
     return redirect('/')
 
@@ -141,8 +141,8 @@ def confirm_order(request):
             variant=i.variant.duration,
             photo=i.product_image.image.url
         ))
-    if data:
-        asyncio.run(order_product(data))
+    # if data:
+        # asyncio.run(order_product(data))dat
 
     return redirect('/')
 

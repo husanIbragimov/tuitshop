@@ -24,11 +24,9 @@ SECRET_KEY = '&$1yklh)i_q*dt*#c@cuoet$zvpd(_(b2zznh!q940)uv3_h=n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+CORS_ALLOW_ALL_ORIGINS = True  # If this is used then `CORS_ALLOWED_ORIGINS` will not have any effect
 
-ALLOWED_HOSTS = []
-
-# Application definition
-
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'modeltranslation',
@@ -39,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.humanize',
+    "corsheaders",
 
     # libs
     'allauth',
@@ -65,6 +64,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -267,5 +267,3 @@ CKEDITOR_CONFIGS = {
         ]),
     }
 }
-
-

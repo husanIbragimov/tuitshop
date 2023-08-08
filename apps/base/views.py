@@ -112,7 +112,6 @@ def resume_create(request):
         birth_of_date = request.POST.get('age')
         image = request.POST.get('image')
         description = request.POST.get('description')
-        print(description)
         github = request.POST.get("github")
         linkedin = request.POST.get("linkedin")
         telegram = request.POST.get("telegram")
@@ -120,8 +119,6 @@ def resume_create(request):
         specialist = request.POST.get('specialist')
         link_job = request.POST.get('url of the work done')
         resume = Resume.objects.filter(user_id=request.user.id)
-        print(github)
-        print(type(github))
         if not resume:
             if 'https://github' in github or github.count == 0:
                 print("git ok")
