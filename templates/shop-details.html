@@ -494,7 +494,7 @@
             image: 0,
             variant: 0,
         }
-        {% for image in image_objects %}
+            {% for image in image_objects %}
             <!-- MAIN_SLIDES -->
             var main_img = document.createElement("img");
             main_img.src = "{{ image.image.url }}";

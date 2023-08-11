@@ -239,9 +239,11 @@
                                                     <li class="cat-item text-muted">
                                                     <a href="/shop/?brand={{ active_brand_name }}&cat={{ sub_child }}">{{ sub_child }}</a>
                                                     ({{ sub_child.product_set.count }})
+
                                                 {% endif %}
                                             {% endfor %}
                                         {% else %}
+
                                         {% for sub_child in cats %}
                                             {% if sub_child.parent != None %}
                                                 <li class="cat-item text-muted">

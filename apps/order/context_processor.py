@@ -15,6 +15,7 @@ def cart_renderer(request):
     subscribe = Subscribe.objects.filter(email=sbb)
     variants = Variant.objects.all().order_by('duration')
     active_variant = variants.last()
+    resume_category = Category.objects.values("title", "id").filter(parent_id=1)
     if not subscribe.exists():
         if request.method == 'POST':
             Subscribe.objects.create(email=sbb)
@@ -32,6 +33,6 @@ def cart_renderer(request):
         "wishlists": wishlists,
         "currency": currency,
         'categories': categories,
-        # 'products': products,
+        'resume_category': resume_category,
         # 'hide_categories': categories
     }

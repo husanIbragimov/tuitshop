@@ -76,7 +76,7 @@ def about(request):
 
 def shop_list(request):
     products = Product.objects.filter(is_active=True).order_by('?')
-    category = Category.objects.filter(is_active=True)
+    category = Category.objects.filter(is_active=True, resume_type=False)
     brands = Brand.objects.all().order_by('-id')
     top_rate_products = sorted(products, key=lambda t: t.mid_rate)
     last_3_products = products.order_by('-view')
@@ -129,6 +129,7 @@ def shop_list(request):
         'last_3_products': last_3_products[:3],
         'top_rate_products': top_rate_products
     }
+
     return render(request, 'shop.html', context)
 
 
@@ -200,6 +201,7 @@ def shop_details(request, id):
         "categories": category,
         "related_products": related_products[:4],
     }
+
     return render(request, "shop-details.html", context)
 
 

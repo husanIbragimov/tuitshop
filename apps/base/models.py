@@ -26,7 +26,7 @@ class UserType(BaseAbstractDate):
         ('Talaba', 'talaba'),
         ("Buxg'alter", "Buxg'alter"),
     )
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='role', null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='role', null=True, blank=True)
     role = models.CharField(max_length=50, choices=Role, default='Talaba', null=True, blank=True)
 
     def __str__(self):
@@ -34,18 +34,21 @@ class UserType(BaseAbstractDate):
 
 
 class Resume(BaseAbstractDate):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='profile', null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='profile', null=True, blank=True)
+    category_resume = models.ForeignKey('product.Category', on_delete=models.SET_NULL, related_name='resume_category',
+                                        null=True, blank=True)
     last_name = models.CharField(max_length=255, null=True, blank=True)
     first_name = models.CharField(max_length=255, null=True, blank=True)
     birth_of_date = models.DateField(null=True, blank=True)
-    image = models.ImageField(upload_to='profile/', null=True, blank=True)
+    image = models.ImageField(upload_to='profile', null=True,blank=True)
     description = models.TextField(null=True, blank=False)
     specialist = models.CharField(max_length=255, null=True, blank=False)
     github = models.URLField(null=True, blank=False)
     linkedin = models.URLField(null=True, blank=False)
     telegram = models.URLField(null=True, blank=False)
+    instagram = models.URLField(null=True, blank=False)
     link_job = models.URLField(null=True, blank=False)
-    cv = models.FileField(upload_to='pdf/cv', blank=True)
+    cv = models.FileField(upload_to='pdf/cv', blank=True,null=True)
 
     def __str__(self):
         return str(self.user)

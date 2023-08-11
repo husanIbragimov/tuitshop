@@ -1,0 +1,310 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+{% block style %}
+    <style>
+        @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+        .form-submit {
+            padding: 4px !important;
+            border: 0px !important;
+            background-color: #ffffff !important;
+            border-radius: 0px !important;
+        }
+
+        .loader {
+            display: none;
+        }
+
+
+        fieldset, label {
+            margin: 0;
+            padding: 0;
+        }
+
+        /****** Style Star Rating Widget *****/
+
+        .rating {
+            border: none;
+            float: left;
+        }
+
+        .rating > input {
+            display: none;
+        }
+
+        .rating > label:before {
+            margin: 5px;
+            font-size: 1.25em;
+            font-family: FontAwesome;
+            display: inline-block;
+            content: "\f005";
+        }
+
+        .rating > .half:before {
+            content: "\f089";
+            position: absolute;
+        }
+
+        .rating > label {
+            color: #ddd;
+            float: right;
+        }
+
+        /***** CSS Magic to Highlight Stars on Hover *****/
+
+        .rating > input:checked ~ label, /* show gold star when clicked */
+        .rating:not(:checked) > label:hover, /* hover current star */
+        .rating:not(:checked) > label:hover ~ label {
+            color: #FFD700;
+        }
+
+        /* hover previous stars in list */
+
+        .rating > input:checked + label:hover, /* hover current star when changing rating */
+        .rating > input:checked ~ label:hover,
+        .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+        .rating > input:checked ~ label:hover ~ label {
+            color: #FFED85;
+        }
+
+        .news__description {
+            font-size: 14px;
+            line-height: 18px;
+            line-clamp: 2;
+            color: black;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 54px;
+        }
+
+        .news__title {
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 18px;
+            color: black;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .subscribe_btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+        }
+
+        .subscribe_btn i {
+            font-size: 20px;
+            color: white;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+
+
+    <main class="main">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/" rel="nofollow">{% trans "Bosh sahifa" %}</a>
+                    {% for name in data %}
+                        <span></span><a href="{% url 'resume-list' name.category_resume.id %}"
+                                        rel="nofollow">{% trans 'Mutaxassislar' %}</a>
+                        <span></span> {{ name.category_resume.title }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <section class="mt-60 mb-60">
+            <div class="container">
+                <div class="row">
+                    {% for item in data %}
+                        <div class="col-lg-9">
+                            <div class="product-detail accordion-detail">
+                                <div class="row mb-50">
+                                    <div class="col-md-6 col-sm-12 col-xs-12" style="height: 70%; width: 471px;">
+                                        <div class="detail-gallery">
+                                            <!-- MAIN SLIDES -->
+                                            <div class="blog-detail__banner"><img
+                                                    src="{{ item.image.url }}"
+                                                    alt="CodeKaplan"></div>
+                                            <!-- THUMBNAILS -->
+                                            <div class="slider-nav-thumbnails pl-15 pr-15" id="slider_image">
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div style="width: 200px" class=" d-flex justify-content-between">
+
+                                                    <a class=" btn-primary subscribe_btn" href="{{ item.github }}"
+                                                       target="_blank"><i
+                                                            class="fab fa-github"></i></a>
+                                                    <a class=" btn-primary subscribe_btn" href="{{ item.instagram }}"
+                                                       target="_blank"><i
+                                                            class="fab fa-instagram"></i></a>
+                                                    <a class=" btn-primary subscribe_btn" href="{{ item.telegram }}"
+                                                       target="_blank"><i
+                                                            class="fab fa-telegram"></i></a>
+                                                    <a class=" btn-primary subscribe_btn" href="{{ item.linkedin }}"
+                                                       target="_blank"><i
+                                                            class="fab fa-linkedin"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                        <div class="detail-info">
+                                            <h2 class="title-detail">{{ item.specialist }}</h2>
+                                            <div class="product-detail-rating">
+                                                <div class="">
+                                                <span class="news__title">  {{ item.last_name }}{{ " " }}{{ item.first_name }}
+                                                        </span>
+                                                </div>
+
+                                            </div>
+                                            <div class="clearfix product-price-cover">
+                                                <div class="product-price primary-color float-left d-flex">
+                                                    <div class="mr-10">
+                                                        <p class="fw-600">{% trans "Men haqimda" %}:</p>
+                                                        <ins>
+                                                            <div id="monthly"
+                                                                 style="font-size: 20px; width: 600px; height: 300px; overflow-y: scroll"
+                                                                 class="news__description">{{ item.description }}
+                                                            </div>
+                                                        </ins>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="bt-1 border-color-1 mt-15 mb-15"></div>
+                                            <div class="short-desc mb-30">
+                                                {{ product.description|safe|truncatewords:40 }}
+                                            </div>
+                                            <div class="bt-1 border-color-1 mt-30 mb-30"></div>
+                                        </div>
+                                        <!-- Detail Info -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+{% block script %}
+    <script src="{% static 'assets/js/plugins/jquery.theia.sticky.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/jquery.elevatezoom.js' %}"></script>
+
+    <script src="{% static 'assets/js/alertify.min.js' %}"></script>
+    <script src="{% static 'assets/js/ajax_request.js' %}"></script>
+    <script src="{% static 'assets/js/calculate_price.js' %}"></script>
+    <script src="{% static 'assets/js/change_photo.js' %}"></script>
+
+    <script>
+        let status = {
+            image: 0,
+            variant: 0,
+        }
+        {% for image in image_objects %}
+            <!-- MAIN_SLIDES -->
+            var main_img = document.createElement("img");
+            main_img.src = "{{ image.image.url }}";
+            main_img.id = "main_slide_image_id-{{ forloop.counter0 }}";
+            var main_div = document.createElement("div");
+            main_div.id = 'main_div_image-{{ forloop.counter0 }}';
+            main_div.appendChild(main_img);
+            document.getElementById("main_slider_image").appendChild(main_div);
+
+            <!-- THUMBNAILS -->
+            var img = document.createElement("img");
+            img.src = "{{ image.image.url }}";
+            img.id = "slide_image_id-{{ forloop.counter0 }}";
+            var div = document.createElement("div");
+            div.id = 'div_image-{{ forloop.counter0 }}';
+            div.appendChild(img);
+            document.getElementById("slider_image").appendChild(div);
+        {% endfor %}
+        function generate(data) {
+            {% for image in image_objects %}
+                <!-- MAIN_SLIDES -->
+                var main_text = "main_slide_image_id-" + {{ forloop.counter0 }};
+                var main_text_div = "main_div_image-" + {{ forloop.counter0 }};
+                <!-- THUMBNAILS -->
+                var text = "slide_image_id-" + {{ forloop.counter0 }};
+                var text_div = "div_image-" + {{ forloop.counter0 }};
+                if (data.length > {{ forloop.counter0 }}) {
+                    <!-- MAIN_SLIDES -->
+                    document.getElementById(main_text).remove();
+                    var main_img = document.createElement("img");
+                    main_img.src = data[{{ forloop.counter0 }}].url;
+                    main_img.id = "main_slide_image_id-" + {{ forloop.counter0 }};
+                    var main_div = document.createElement("div");
+                    main_div.id = 'main_div_image_slide';
+                    main_div.appendChild(main_img);
+                    document.getElementById(main_text_div).appendChild(main_div);
+                    <!-- THUMBNAILS -->
+                    document.getElementById(text).remove();
+                    var img = document.createElement("img");
+                    img.src = data[{{ forloop.counter0 }}].url;
+                    img.id = "slide_image_id-" + {{ forloop.counter0 }};
+                    var div = document.createElement("div");
+                    div.id = 'div_image_slide';
+                    div.appendChild(img);
+                    document.getElementById(text_div).appendChild(div);
+                } else {
+                    <!-- MAIN_SLIDES -->
+                    var main_imge = document.getElementById(main_text);
+                    main_imge.src = "";
+                    main_imge.id = "main_slide_image_id-" + {{ forloop.counter0 }};
+                    var main_dive = document.createElement("div");
+                    main_dive.id = 'main_div_image_slide';
+                    main_dive.appendChild(main_imge);
+                    document.getElementById(main_text_div).appendChild(main_dive);
+                    <!-- THUMBNAILS -->
+                    var imge = document.getElementById(text);
+                    imge.src = "";
+                    imge.id = "slide_image_id-" + {{ forloop.counter0 }};
+                    var dive = document.createElement("div");
+                    dive.id = 'div_image_slide';
+                    dive.appendChild(imge);
+                    document.getElementById(text_div).appendChild(dive);
+                    // Expected output: ReferenceError: nonExistentFunction is not defined
+                    // (Note: the exact output may be browser-dependent)
+                }
+
+            {% endfor %}
+        }
+
+        function send_val(item_id, pro_id, price) {
+            calculate({{ active_variant.duration }}, {{ active_variant.percent }}, price, "images", item_id)
+            let image_id = item_id;
+            let product_id = pro_id;
+
+
+            var token = $("input[name=csrfmiddlewaretoken]").val();
+
+
+            $.ajax({
+                method: 'POST',
+                url: "/shop-images/",
+                data: {
+                    "product_id": product_id,
+                    "image_id": image_id,
+                    csrfmiddlewaretoken: token
+                },
+                success: function (response) {
+                    generate(response.data)
+                }
+            })
+        }
+
+    </script>
+
+{% endblock %}

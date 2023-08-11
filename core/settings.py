@@ -267,3 +267,7 @@ CKEDITOR_CONFIGS = {
         ]),
     }
 }
+
+# Django CSRF Origins
+
+CSRF_TRUSTED_ORIGINS = ["http://localhost", "http://127.0.0.1"]
