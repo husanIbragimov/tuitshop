@@ -90,12 +90,12 @@ f{% block style %}
                                     <div class="single-hero-slider single-animation-wrap">
                                         <div class="container">
                                             <div class="slider-1-height-3 slider-animated-1">
-                                                <div class="hero-slider-content-2">
+{#                                                <div class="hero-slider-content-2">#}
                                                     {#                                                    <h4>{{ banner.desc|safe }}</h4>#}
-                                                    <a class="animated btn btn-default btn-rounded"
-                                                       href="{% url 'products_filter' %}"> {% trans "Sotib Olish" %} <i
-                                                            class="fa fa-arrow-right"></i> </a>
-                                                </div>
+{#                                                    <a class="animated btn btn-default btn-rounded"#}
+{#                                                       href="{% url 'products_filter' %}"> {% trans "Sotib Olish" %} <i#}
+{#                                                            class="fa fa-arrow-right"></i> </a>#}
+{#                                                </div>#}
                                                 <div class="slider-img">
                                                     <img src="{{ banner.image.url }}" alt="" width="1000px">
                                                 </div>
@@ -113,7 +113,7 @@ f{% block style %}
                             <div class="banner-img banner-1 wow fadeIn animated"
                                  style="visibility: visible; animation-name: fadeIn; margin-bottom: 5px;">
                                 <a href="{% url 'shop-details' foo.product_id.id %}">
-                                    <img  class="border-radius-10"
+                                    <img class="border-radius-10"
                                          src="{{ foo.image.url }}"
                                          alt="" height="450px"
                                          width="370px"></a>
@@ -276,14 +276,14 @@ f{% block style %}
         </section>
         <section class="product-tabs pt-30 pb-30 wow fadeIn animated">
             <div class="container">
-{#                <ul class="nav-tabs" id="myTab" role="tablist">#}
-{#                    <li class="nav-item" role="presentation">#}
-{#                        <button class="nav-link" id="nav-tab-one" data-bs-toggle="tab" data-bs-target="#tab-one"#}
-{#                                type="button" role="tab" aria-controls="tab-one"#}
-{#                                aria-selected="true">{% trans "Maxsus" %}#}
-{#                        </button>#}
-{#                    </li>#}
-{#                </ul>#}
+                {#                <ul class="nav-tabs" id="myTab" role="tablist">#}
+                {#                    <li class="nav-item" role="presentation">#}
+                {#                        <button class="nav-link" id="nav-tab-one" data-bs-toggle="tab" data-bs-target="#tab-one"#}
+                {#                                type="button" role="tab" aria-controls="tab-one"#}
+                {#                                aria-selected="true">{% trans "Maxsus" %}#}
+                {#                        </button>#}
+                {#                    </li>#}
+                {#                </ul>#}
                 <!--End nav-tabs-->
                 <div class="tab-content wow fadeIn animated main__box" id="myTabContent">
                     <div class="tab-pane fade show active" id="tab-one" role="tabpanel" aria-labelledby="tab-one">
@@ -296,9 +296,10 @@ f{% block style %}
                                                 <a href="{% url 'shop-details' product.id %}">
                                                     <img class="default-img default-img-size"
                                                          src="{{ product.product_images.first.image.url }}" alt=""
-                                                         width="230px" height="230px">
+                                                         width="230px" height="230px" style="object-fit: cover">
                                                     <img class="hover-img default-img-size"
-                                                         src="{{ product.product_images.first.image.url }}" alt=""
+                                                         src="{{ product.product_images.first.image.url }}"
+                                                         style="object-fit: cover" alt=""
                                                          width="230px" height="230px">
                                                 </a>
                                             </div>

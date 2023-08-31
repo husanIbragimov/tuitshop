@@ -30,10 +30,10 @@ class ImagesAdmin(admin.ModelAdmin):
 
 class CategoryAdmin(DraggableMPTTAdmin, TranslationAdmin):
     mptt_indent_field = "title"
-    list_display = ('tree_actions', 'indented_title', 'created_at', 'is_active', 'id')
+    list_display = ('tree_actions', 'indented_title', 'created_at', 'is_active', "resume_type", 'id')
 
     list_display_links = ('indented_title', 'id')
-    list_filter = ('is_active', 'created_at')
+    list_filter = ('is_active', "resume_type", 'created_at')
     search_fields = ('title',)
     list_per_page = 25
 
@@ -58,7 +58,7 @@ class ProductAdmin(TranslationAdmin):
     list_display = (
         'title', 'percentage', 'discount', 'get_discount_price', 'mid_rate', 'view', 'is_active',
         'id')
-    search_fields = ('title', )
+    search_fields = ('title',)
     readonly_fields = ('mid_rate', 'get_discount_price',)
     list_filter = ('is_active', 'status', 'brand', 'updated_at', 'created_at')
     list_per_page = 50

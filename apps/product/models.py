@@ -6,7 +6,7 @@ from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from mptt.models import MPTTModel
 from colorfield.fields import ColorField
-from apps.base.models import Variant,BaseAbstractDate
+from apps.base.models import Variant, BaseAbstractDate
 
 
 class BannerDiscount(BaseAbstractDate):
@@ -51,6 +51,7 @@ class Category(MPTTModel, BaseAbstractDate):
     title = models.CharField(max_length=50)
     icon = models.ImageField(upload_to='category', null=True, blank=True)
     is_active = models.BooleanField(default=True)
+    resume_type = models.BooleanField(default=False, null=True, blank=True)
 
     class MPTTMeta:
         verbose_name = 'Kategoriya'

@@ -5,19 +5,17 @@
 {% block content %}
 
     <section class="resume-form">
+    {% for item in data %}
         <div class="container">
-            <form action="{% url 'resume-create' %}" method="POST" enctype="multipart/form-data"
-                  class="row pb-50 pt-3 gy-3">
+            <form action="{% url 'resume-create' %}" method="POST" class="row pb-50 pt-3 gy-3">
                 {% csrf_token %}
                 <h1 class=" text-center fw-normal col-12">{% trans 'Resume' %}</h1>
                 <div class="col-md-6 col-12">
                     <div class="input-group">
                         <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
-                        <input type="text" name="first_name" class="form-control" placeholder="{% trans 'First name' %}"
+                        <input type="text" name="{{ item.first_name }}" class="form-control" placeholder="{% trans 'First name' %}"
                                aria-label="First name"
-                               aria-describedby="first_name"  {% if resume %}
-                               value="{{ resume.first_name }}"
-                        {% endif %}>
+                               aria-describedby="{{ item.first_name }}">
                     </div>
                 </div>
                 <div class="col-md-6 col-12">
@@ -25,36 +23,23 @@
                         <span class="input-group-text" id="last_name"><i class="fas fa-user"></i></span>
                         <input type="text" name="last_name" class="form-control" placeholder="{% trans 'Last name' %}"
                                aria-label="Last Name"
-                               aria-describedby="last_name"{% if resume %}
-                               value="{{ resume.last_name }}"
-                        {% endif %}>
+                               aria-describedby="last_name">
                     </div>
                 </div>
                 <div class="col-md-6 col-12">
                     <div class="input-group">
                         <span class="input-group-text" id="age"><i class="fas fa-calendar-alt"></i></span>
-
-                        <input type="date" name="birth_of_date" class="form-control"
-                               placeholder="{% trans "Tug'lgan Kunigiz" %}"
+                        <input type="date" name="age" class="form-control" placeholder="{% trans "Tug'lgan Kunigiz" %}"
                                aria-label="Age"
-                               aria-describedby="birth_of_date"
-                               value="{% if resume %}{{ resume.birth_of_date|date:'Y-m-d' }}{% endif %}">
-
+                               aria-describedby="Age">
                     </div>
                 </div>
                 <div class="col-md-6 col-12">
                     <div class="input-group">
                         <span class="input-group-text" id="image"><i class="far fa-image"></i></span>
-                        {% if resume.image.url %}
-                            <img src="{{ resume.image.url }}" style="width: 80px">
-                            <input type="file" name="image" class="form-control" placeholder="Image"
-                                   aria-label="Image"
-                                   aria-describedby="image">
-                        {% else %}
-                            <input type="file" name="image" class="form-control" placeholder="Image"
-                                   aria-label="Image"
-                                   aria-describedby="image">
-                        {% endif %}
+                        <input type="file" name="image" class="form-control" placeholder="Image"
+                               aria-label="Image"
+                               aria-describedby="image">
                     </div>
                 </div>
                 <div class="col-md-6 col-12">
@@ -62,8 +47,7 @@
                         <span class="input-group-text" id="github"><i class="fab fa-github-square"></i></span>
                         <input type="url" name="github" class="form-control" placeholder="{% trans 'Github' %}"
                                aria-label="Github"
-                               aria-describedby="github"{% if resume %} value="{{ resume.github }}"
-                        {% endif %}>
+                               aria-describedby="github">
                     </div>
                 </div>
                 <div class="col-md-6 col-12">
@@ -71,8 +55,7 @@
                         <span class="input-group-text" id="linkedin"><i class="fab fa-linkedin"></i></span>
                         <input type="url" name="linkedin" class="form-control" placeholder="{% trans 'Linkedin' %}"
                                aria-label="Linkedin"
-                               aria-describedby="linkedin" {% if resume %} value="{{ resume.linkedin }}"
-                        {% endif %}>
+                               aria-describedby="linkedin">
                     </div>
                 </div>
                 <div class="col-md-6 col-12">
@@ -80,35 +63,32 @@
                         <span class="input-group-text" id="telegram"><i class="fab fa-telegram"></i></span>
                         <input type="url" name="telegram" class="form-control" placeholder="{% trans 'Telegram' %}"
                                aria-label="Telegram"
-                               aria-describedby="telegram" {% if resume %} value="{{ resume.telegram }}"
-                        {% endif %}>
+                               aria-describedby="telegram">
                     </div>
                 </div>
-                {#                <div class="col-md-6 col-12">#}
-                {#                    <div class="input-group">#}
-                {#                        <span class="input-group-text" id="cv"><i class="fas fa-file-alt"></i></span>#}
-                {#                        <input type="file" name="cv" class="form-control" placeholder="CV"#}
-                {#                               aria-label="CV"#}
-                {#                               aria-describedby="cv">#}
-                {#                    </div>#}
-                {#                </div>#}
+                <div class="col-md-6 col-12">
+                    <div class="input-group">
+                        <span class="input-group-text" id="cv"><i class="fas fa-file-alt"></i></span>
+                        <input type="file" name="cv" class="form-control" placeholder="CV"
+                               aria-label="CV"
+                               aria-describedby="cv">
+                    </div>
+                </div>
                 <div class="col-md-6 col-12">
                     <div class="input-group">
                         <span class="input-group-text" id="specialist"><i class="fas fa-user-tie"></i></span>
                         <input type="text" name="specialist" class="form-control" placeholder="{% trans 'Specialist' %}"
                                aria-label="Specialist"
-                               aria-describedby="specialist" {% if resume %} value="{{ resume.specialist }}"
-                        {% endif %}>
+                               aria-describedby="specialist">
                     </div>
                 </div>
                 <div class="col-md-6 col-12">
                     <div class="input-group">
                         <span class="input-group-text" id="url of the work done"><i class="fas fa-link"></i></span>
-                        <input type="url" name="link_job" class="form-control"
+                        <input type="url" name="url of the work done" class="form-control"
                                placeholder="{% trans 'Url of the work done' %}"
                                aria-label="Url of the work done"
-                               aria-describedby="link_job" {% if resume %} value="{{ resume.link_job }}"
-                        {% endif %}>
+                               aria-describedby="url of the work done">
                     </div>
                 </div>
                 <div class="col-md-6 col-12">
@@ -117,8 +97,7 @@
                         <input type="url" name="instagram" class="form-control"
                                placeholder="{% trans 'Instagram' %}"
                                aria-label="Instagram"
-                               aria-describedby="instagram" {% if resume %} value="{{ resume.instagram }}"
-                        {% endif %}>
+                               aria-describedby="instagram">
                     </div>
                 </div>
                 <div class="col-md-6 col-12">
@@ -127,32 +106,20 @@
                                     class="">{% trans "Yo'nalishni Tanlang" %}</i></span>
 
                         <select class="form-select form-select-sm" aria-label=".form-select-sm example"
-                                name="category_resume" >
+                                name="category">
                             {% for cat in resume_category.all %}
-                                <option value="{{ cat.id }}"  {% if resume %} value="{{ cat.id }}"
-                                {% endif %} selected>{{ cat.title }}
-                                </option>
+                                <option value="{{ cat.id }}" selected>{{ cat.title }}</option>
                             {% endfor %}
                         </select>
 
                     </div>
                 </div>
                 <textarea class="col-12 form-control" contenteditable="true" name="description" id="description"
-                          style="overflow: auto; min-height: 300px; max-height: 800px"> {% if resume %}
-                    {{ resume.description }}
-                {% endif %}</textarea>
+                          style="overflow: auto; min-height: 300px; max-height: 800px"></textarea>
                 {% if messages %}
                     {% for message in messages %}
                         {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
                             <div class="alert alert-danger">
-                                {{ message }}
-                            </div>
-                        {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-                            <div class="alert alert-success">
-                                {{ message }}
-                            </div>
-                        {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
-                            <div class="alert alert-warning">
                                 {{ message }}
                             </div>
                         {% endif %}
@@ -160,16 +127,10 @@
                 {% endif %}
 
                 <div>
-                    <button type="submit" class="btn btn-primary">{% trans 'Saqlash' %}</button>
-
+                    <button type="submit" class="btn btn-primary">{% trans 'Yuborish' %}</button>
                 </div>
-                <div class="col s6 right-align">
-                    <a class="waves-effect waves-darken btn-small red"
-                       href="{% url 'resume-delete' %}">{% trans "O'chirish" %}</a>
-                </div>
-
             </form>
         </div>
-
+    {% endfor %}
     </section>
 {% endblock %}

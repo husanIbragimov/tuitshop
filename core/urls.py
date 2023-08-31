@@ -24,13 +24,12 @@ from apps.order.api.v1 import views as api_views
 from apps.base.views import set_language
 from django.views.static import serve
 
-
 urlpatterns = [
-    path('tuitsh-admin/', admin.site.urls),
-    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
-    re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
+                  path('tuitsh-admin/', admin.site.urls),
+                  re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+                  re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
 
-] + i18n_patterns(
+              ] + i18n_patterns(
     # language
     path('i18n/', include('django.conf.urls.i18n')),
     # lib
@@ -49,10 +48,11 @@ urlpatterns = [
     path('login/', views.login_func, name="login"),
     path('logout/', views.logout_func, name="logout"),
     path('resume/', views.resume_create, name="resume-create"),
+    path('resume-list/<int:pk>', views.resume_list, name="resume-list"),
+    path('resume-detail/<int:pk>', views.resume_detail, name="resume-detail"),
+    path('resume-delete/', views.resume_delete, name="resume-delete"),
 
-
-
-    # prefix_default_language=False,
+    prefix_default_language=False,
 )
 
 if settings.DEBUG:

@@ -35,11 +35,15 @@
     <meta property="og:type" content="">
     <meta property="og:url" content="">
     <meta property="og:image" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Template CSS -->
+
+
     <link rel="shortcut icon" type="image/x-icon" href="https://static.tuit.uz/assets/2d4211c5/img/src/newlogotype.png">
     <link rel="stylesheet" href="{% static 'assets/css/alertify.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" type="text/css">
+
     {% block style %} {% endblock %}
     {% block topscript %} {% endblock %}
     <style>
@@ -187,6 +191,29 @@
             top: 0;
             position: absolute;
         }
+
+        .user-photo {
+            border-radius: 6px;
+        }
+
+        .users-form {
+            width: 100%;
+        }
+
+        .users-form-info {
+            width: 100%;
+            height: 250px;
+
+        }
+
+        .users-phone-number {
+            display: block;
+        }
+
+        .users-email {
+            display: block;
+        }
+
 
     </style>
 
@@ -381,24 +408,52 @@
                                                 <li class="mega-menu-col col">
                                                     <ul class="d-lg-flex row row-cols-3">
                                                         {% for child in categories %}
-                                                            {% if child.parent == cat %}
-                                                                <li class="col col-6 col-md-4 mega-menu-col">
-                                                                    <ul>
-                                                                        <li><span><a class="submenu-title"
-                                                                                     href="/shop/?cat={{ child }}">{{ child }}</a></span>
-                                                                        </li>
-                                                                        {% for sub_child in categories %}
-                                                                            {% if sub_child.parent == child %}
-                                                                                <li>
-                                                                                <a class="dropdown-item nav-link nav_item"
-                                                                                   href="/shop/?cat={{ sub_child }}">{{ sub_child }}</a>
-                                                                            {% endif %}
-                                                                        {% endfor %}
-                                                                        </li>
-                                                                    </ul>
-                                                                </li>
+                                                            {% if cat.resume_type == True %}
+                                                                {% if child.parent_id == cat.id %}
+                                                                    <li class="col col-6 col-md-4 mega-menu-col">
+                                                                        <ul>
+                                                                            <li><span><a class="submenu-title"
+                                                                                         href="{% url 'resume-list' child.id %}">{{ child }}</a></span>
+                                                                            </li>
 
+                                                                            {% for sub_child in categories %}
+                                                                                {% if sub_child.parent == child %}
+                                                                                    <li>
+                                                                                        <a class="dropdown-item nav-link nav_item"
+                                                                                           href="{% url 'resume-list' child.id %}">{{ sub_child }}</a>
+                                                                                    </li>
+                                                                                {% elif cat %}
+                                                                                {% endif %}
+
+                                                                            {% endfor %}
+
+
+                                                                        </ul>
+                                                                    </li>
+                                                                {% endif %}
+                                                            {% else %}
+                                                                {% if child.parent == cat %}
+                                                                    <li class="col col-6 col-md-4 mega-menu-col">
+                                                                        <ul>
+                                                                            <li><span><a class="submenu-title"
+                                                                                         href="/shop/?cat={{ child }}">{{ child }}</a></span>
+                                                                            </li>
+
+                                                                            {% for sub_child in categories %}
+                                                                                {% if sub_child.parent == child %}
+                                                                                    <li>
+                                                                                    <a class="dropdown-item nav-link nav_item"
+                                                                                       href="/shop/?cat={{ sub_child }}">{{ sub_child }}</a>
+                                                                                {% elif cat %}
+                                                                                {% endif %}
+                                                                            {% endfor %}
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+
+                                                                {% endif %}
                                                             {% endif %}
+
                                                         {% endfor %}
                                                     </ul>
                                                 </li>
@@ -706,12 +761,13 @@
 
                     </ul>
                 </div>
-				<div class="col-lg-2  col-md-3">
+                <div class="col-lg-2  col-md-3">
                     <h5 class="widget-title mb-30 wow fadeIn animated">{% trans "Bizning manzil" %}</h5>
                     <div class="google-map">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2995.5297696992643!2d69.28462621492558!3d41.34083750684348!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b534175ed31%3A0x52a8f9d9414a2ad8!2sAlxorazmiy%20Nomidagi%20Toshkent%20axborot%20texnologiyalari%20universiteti!5e0!3m2!1suz!2s!4v1643703529107!5m2!1suz!2s"
-                                    style="width: 400px; height: 400px" allowfullscreen="" loading="lazy" class="xarita"></iframe>
-                        </div>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2995.5297696992643!2d69.28462621492558!3d41.34083750684348!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b534175ed31%3A0x52a8f9d9414a2ad8!2sAlxorazmiy%20Nomidagi%20Toshkent%20axborot%20texnologiyalari%20universiteti!5e0!3m2!1suz!2s!4v1643703529107!5m2!1suz!2s"
+                                style="width: 400px; height: 400px" allowfullscreen="" loading="lazy"
+                                class="xarita"></iframe>
+                    </div>
                 </div>
             </div>
         </div>
