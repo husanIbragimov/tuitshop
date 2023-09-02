@@ -5,7 +5,7 @@ from aiogram.dispatcher import FSMContext
 
 token = '5978476855:AAEUfYUTXPDGQsjLzGBmuf21fbz3hgKje7k'
 url = 'http://127.0.0.1:8000/'
-url_server = 'https://choko.uz/'
+url_server = 'https://tuitshop.uz/'
 bot = Bot(token=token)
 
 dp = Dispatcher(bot)

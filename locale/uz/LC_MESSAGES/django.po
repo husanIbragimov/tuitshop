@@ -148,7 +148,7 @@ msgid "Ko'proq"
 msgstr ""
 
 #: templates/base.html:540
-msgid "TUIT-brend"
+msgid "Barcha Mahsulotlar"
 msgstr ""
 
 #: templates/base.html:543 templates/base.html:641 templates/base.html:739

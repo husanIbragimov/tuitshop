@@ -8,4 +8,4 @@ user:
 	python manage.py createsuperuser
 
 run:
-	python manage.py runserver
+	python3 manage.py runserver

@@ -150,8 +150,8 @@ msgid "Ko'proq"
 msgstr "More"
 
 #: templates/base.html:540
-msgid "TUIT-brend"
-msgstr ""
+msgid "Barcha Mahsulotlar"
+msgstr "All Products"
 
 #: templates/base.html:543 templates/base.html:641 templates/base.html:739
 #: templates/base.html:767 templates/page-contact.html:21
