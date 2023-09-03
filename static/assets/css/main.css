@@ -3219,7 +3219,7 @@ table .product-thumbnail img {
     position: absolute;
     left: 20px;
     top: 20px;
-    z-index: 9;
+    z-index: 7;
 }
 
 .product-cart-wrap .product-badges span {

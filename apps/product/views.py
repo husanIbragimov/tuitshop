@@ -106,6 +106,7 @@ def shop_list(request):
     active_brand = False
     active_brand_name = False
     shop = request.GET.get('product-list')
+    print(request.GET)
 
     if cat:
         active_cat = True
