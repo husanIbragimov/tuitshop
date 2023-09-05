@@ -90,12 +90,12 @@ f{% block style %}
                                     <div class="single-hero-slider single-animation-wrap">
                                         <div class="container">
                                             <div class="slider-1-height-3 slider-animated-1">
-{#                                                <div class="hero-slider-content-2">#}
-                                                    {#                                                    <h4>{{ banner.desc|safe }}</h4>#}
-{#                                                    <a class="animated btn btn-default btn-rounded"#}
-{#                                                       href="{% url 'products_filter' %}"> {% trans "Sotib Olish" %} <i#}
-{#                                                            class="fa fa-arrow-right"></i> </a>#}
-{#                                                </div>#}
+                                                {#                                                <div class="hero-slider-content-2">#}
+                                                {#                                                    <h4>{{ banner.desc|safe }}</h4>#}
+                                                {#                                                    <a class="animated btn btn-default btn-rounded"#}
+                                                {#                                                       href="{% url 'products_filter' %}"> {% trans "Sotib Olish" %} <i#}
+                                                {#                                                            class="fa fa-arrow-right"></i> </a>#}
+                                                {#                                                </div>#}
                                                 <div class="slider-img">
                                                     <img src="{{ banner.image.url }}" alt="" width="1000px">
                                                 </div>
@@ -132,13 +132,13 @@ f{% block style %}
                                 </div>
                                 <div style="padding: 0 15px; top: 60px" class="banner-text sales ms-2">
 
-                                    {#                                    <h4 class="fs-8">{% trans "tejab qolish" %}#}
-                                    {#                                        <br>{{ foo.title }}</h4>#}
-                                    {#                                    <a class="buy"#}
-                                    {#                                       href="{% url 'shop-details' foo.product_id.id %} ">{% trans "Sotib Olish" %}<i#}
-                                    {#                                            class="fa fa-arrow-right"></i></a>#}
+{#                                    <h4 class="fs-8">{% trans "tejab qolish" %}#}
+{#                                        <br>{{ foo.title }}</h4>#}
+{#                                    <a class="buy"#}
+{#                                       href="{% url 'shop-details' foo.product_id.id %} ">{% trans "Sotib Olish" %}<i#}
+{#                                            class="fa fa-arrow-right"></i></a>#}
 
-                                    <div id="event-box" class="hidden">{{ foo.deadline|date:'M d, Y H:i:s' }}</div>
+                                    <div id="event-box" class="hidden">{{ foo.deadline|date:'m.d.y, H:m:s' }}</div>
                                 </div>
                             </div>
                         {% endfor %}
@@ -266,7 +266,7 @@ f{% block style %}
                             <h4 class="text-black">{{ advertisement.title }}</h4>
                             {#                            <p>{{ advertisement.description|safe }}</p>#}
                             <br>
-                            <a href="/shop/?advertisement={{ advertisement }}" class="btn">{% trans "Batafsil" %} <i
+                            <a href="{% url 'products_filter' %}" class="btn">{% trans "Batafsil" %} <i
                                     class="fa fa-arrow-right"></i></a>
                         </div>
                     </div>

@@ -23,11 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '&$1yklh)i_q*dt*#c@cuoet$zvpd(_(b2zznh!q940)uv3_h=n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 CORS_ALLOW_ALL_ORIGINS = True  # If this is used then `CORS_ALLOWED_ORIGINS` will not have any effect
 
 ALLOWED_HOSTS = ['*']
-
 INSTALLED_APPS = [
     'modeltranslation',
     'django.contrib.auth',
@@ -178,7 +177,17 @@ MODELTRANSLATION_FALLBACK_LANGUAGES = ('ru', 'uz', 'en')
 MODELTRANSLATION_TRANSLATION_FILES = (
     'apps.product.translation',
 )
-
+PARLER_LANGUAGES = {
+    None: (
+        {'code': 'uz', },  # Uzbek
+        {'code': 'ru', },  # Russian
+        {'code': 'en', },  # English
+    ),
+    'default': {
+        'fallbacks': ['uz'],
+        'hide_untranslated': False,
+    }
+}
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
@@ -270,4 +279,4 @@ CKEDITOR_CONFIGS = {
 
 # Django CSRF Origins
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost", "http://127.0.0.1"]
+CSRF_TRUSTED_ORIGINS = ["https://otabekismailov.jprq.live"]

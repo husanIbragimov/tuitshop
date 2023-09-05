@@ -124,8 +124,13 @@ def selectlanguage(request):
         last_url = request.META.get('HTTP_REFERER')
         lang = request.POST.get('language')
         translation.activate(lang)
-        request.session[translation.LANGUAGE_SESSION_KEY] = lang
+
+        request.session[translation.get_language()] = lang
         return HttpResponseRedirect(f"/{lang}")
+
+
+from django.utils import translation
+
 
 
 def resume_create(request):
@@ -279,7 +284,6 @@ def resume_create(request):
 
 
 def resume_list(request, pk):
-
     obj = Resume.objects.filter(category_resume_id=pk)
 
     return render(request, 'resume_list.html', {"objec": obj})

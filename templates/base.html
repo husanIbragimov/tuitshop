@@ -24,11 +24,11 @@
     <title>TUIT SHOP — Интернет-магазин</title>
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description"
-          content="choko uz, choko ,choko online market, choko internet dukani, choko solfy, solfy karta, https://choko.uz/static/assets/imgs/theme/favicon.ico, choko kredit, kridit choko, telefonlar, noutbooklar, televizorlar">
+          content="tuit shop, tuitshop ,tuit online market, tuit internet dukani, tuit solfy, solfy karta, https://tuit-shop.uz/static/assets/imgs/theme/favicon.ico, tuitshop kredit, kridit tuitshop, telefonlar, noutbooklar, televizorlar">
     <meta name="keywords"
-          content="choko uz, choko ,choko online market, choko internet dukani, choko solfy, solfy karta">
+          content="tuitshop uz, tuitshop ,tuit online market, tuit internet dukani, tuit solfy, solfy karta">
     <meta name="robots" content="index, follow">
-    <meta name="author" content="choko uz, choko ,choko online market, choko internet dukani, choko solfy, solfy karta">
+    <meta name="author" content="tuitshop uz, tuit ,tuit online market, tuit internet dukani, tuit solfy, solfy karta">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="wgY_TBon8cnrL_Lzz9DdeXfPNE0MMX8W9qiSIWIUQTk"/>
     <meta property="og:title" content="">
@@ -214,6 +214,15 @@
             display: block;
         }
 
+        .icon .icon {
+            background-image: url("../static/assets/en.png");
+            background-repeat: no-repeat;
+            background-size: 10px;
+            width: 10px;
+            height: 10px;
+            cursor: pointer;
+        }
+
 
     </style>
 
@@ -233,7 +242,7 @@
                 <div class="col-xl-3 col-lg-4">
                     <div class="header-info">
                         <ul>
-                            <li><a href="tel:+998883338803">+998 88 333 88 03</a></li>
+                            <li><a href="tel:+998883338805">+998 88 333 88 05</a></li>
                             <li><i class="fa fa-map-marker-alt mr-5"></i><a target="_blank"
                                                                             href="https://goo.gl/maps/xsPca2K7Rn9nmib76">{% trans 'Bizning joylashuv' %}</a>
                             </li>
@@ -263,6 +272,7 @@
                         {% get_available_languages as LANGUAGES %}
                         {% get_language_info_list for LANGUAGES as languages %}
                         {% for language in languages %}
+
                             <form action="{% url 'set_language' %}" method="post" id="form_{{ language.code }}"
                                   style="display:inline!important;">
                                 {% csrf_token %}
@@ -276,11 +286,16 @@
                                     value="Submit"
                                     style="padding: 12px 10px">
                                 {% if language.code == 'uz' %}
-                                    <img src="{% static '' %}assets/uz.png" alt="" width="20px">
+                                    <img src="{% static '' %}assets/uz.png" alt="logo" width="20px">
+
                                 {% elif language.code == 'ru' %}
-                                    <img src="{% static '' %}assets/ru.png" alt="" width="20px">
+                                    <img src="{% static '' %}assets/ru.png" alt="logo" width="20px"
+                                         style="height: 10px;">
                                 {% else %}
-                                    <img src="{% static '' %}assets/en.png" alt="" width="20px">
+                                    <img src="{% static '' %}assets/en.png" alt="logo"
+                                         style="width: 20px; height: 14px;"
+                                         width="20px">
+
                                 {% endif %}{{ language.code }}
 
                             </button>
@@ -436,7 +451,8 @@
                                                                     <li class="col col-6 col-md-4 mega-menu-col">
                                                                         <ul>
                                                                             <li><span><a class="submenu-title"
-                                                                                         href="/shop/?cat={{ child }}">{{ child }}</a></span>
+                                                                                         href="/shop/?cat={{ child }}"
+                                                                                         id="{{ cat.id }}">{{ child }}</a></span>
                                                                             </li>
 
                                                                             {% for sub_child in categories %}
@@ -515,13 +531,13 @@
                 <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block main-menu-light-white hover-boder hover-boder-white">
                     <nav>
                         <ul>
-                            <li><a class="active" href="/">{% trans "Bosh sahifa" %}</a>
+                            <li><a class="active" href="{% url 'index' %}">{% trans "Bosh sahifa" %}</a>
                             </li>
                             {#                            <li>#}
                             {##}
                             {#                                <a href="{% url 'about' %}">{% trans "Biz haqimizda" %}</a>#}
                             {#                            </li>#}
-                            <li><a href="{% url 'products_filter' %}">{% trans "TUIT-brend" %}</a>
+                            <li><a href="{% url 'products_filter' %}?product-list">{% trans "Barcha Mahsulotlar" %}</a>
                             </li>
                             <li>
                                 <a href="{% url 'contact' %}">{% trans "Aloqa" %}</a>
@@ -665,7 +681,7 @@
                 </div>
 
                 <div class="single-mobile-header-info">
-                    <a href="tel:+998883338803">+998 88 333 88 03 </a>
+                    <a href="tel:+998883338805">+998 88 333 88 05 </a>
                 </div>
             </div>
             <div class="mobile-social-icon">

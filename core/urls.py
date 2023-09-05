@@ -18,10 +18,10 @@ from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, re_path
-from django.utils.translation import gettext_lazy as _
+
 from apps.base import views
 from apps.order.api.v1 import views as api_views
-from apps.base.views import set_language
+
 from django.views.static import serve
 
 urlpatterns = [
@@ -34,6 +34,7 @@ urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
     # lib
     path('base/', include('allauth.urls')),
+
     # api
     path('change_status/', api_views.change_status),
     path('count-products/', api_views.count_products),

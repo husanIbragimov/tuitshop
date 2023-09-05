@@ -8,6 +8,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from apps.product.models import Category, Banner, Brand, Product, Rate, Advertisement, Color, ProductImage, \
     BannerDiscount
 from django.core.paginator import Paginator, PageNotAnInteger
+from django.contrib.postgres.search import SearchVector, SearchRank, SearchQuery
 
 
 def index(request):
@@ -31,7 +32,17 @@ def index(request):
     search = request.GET.get('search')
     status_index = 'featured'
     if cat:
-        product = product.filter(category__title__icontains=cat)
+        product = product.filter(Q(category__title_ru__icontains=cat) | Q(category__title_en__icontains=cat) | Q(
+            category__title__icontains=cat) | Q(category__title_uz__icontains=cat))
+
+        cat_id = Category.objects.values('parent_id').filter(
+            Q(title_ru__icontains=cat) | Q(title_en__icontains=cat) | Q(
+                title__icontains=cat) | Q(title_uz__icontains=cat), is_active=True,
+            resume_type=False,
+        ).first()
+
+        category = Category.objects.filter(is_active=True, resume_type=False,
+                                           parent_id=cat_id['parent_id'])
     if status:
         if status == "popular":
             product = sorted(product, key=lambda t: t.mid_rate, reverse=True)
@@ -40,8 +51,11 @@ def index(request):
             product = product.order_by('-view')
             status_index = 'top_rated'
     if search:
-        product = product.filter(Q(title__icontains=search) | Q(category__title__icontains=search))
-
+        product = product.filter(
+            Q(title__icontains=search) | Q(title_ru__icontains=search) | Q(title_en__icontains=search) | Q(
+                title_uz__icontains=search) | Q(
+                status__icontains=search) | Q(brand__title__icontains=search) | Q(description_ru=search) | Q(
+                description_en=search) | Q(description_uz=search) | Q(description_ru=search))
     for banner_discount in banner_discounts:
         now = timezone.now()
         deadline = banner_discount.deadline
@@ -75,14 +89,14 @@ def about(request):
 
 
 def shop_list(request):
+    # filter
+    cat = request.GET.get('cat')
+
+    category = None
     products = Product.objects.filter(is_active=True).order_by('?')
-    category = Category.objects.filter(is_active=True, resume_type=False)
     brands = Brand.objects.all().order_by('-id')
     top_rate_products = sorted(products, key=lambda t: t.mid_rate)
     last_3_products = products.order_by('-view')
-
-    # filter
-    cat = request.GET.get('cat')
     top_rated = request.GET.get('top_rated')
     search = request.GET.get('search')
     advertisement = request.GET.get('advertisement')
@@ -91,14 +105,40 @@ def shop_list(request):
     active_cat_name = None
     active_brand = False
     active_brand_name = False
+    shop = request.GET.get('product-list')
+    print(request.GET)
+
     if cat:
         active_cat = True
         active_cat_name = cat
-        products = products.filter(category__title__icontains=cat)
+        products = products.filter(Q(category__title_ru__icontains=cat) | Q(category__title_en__icontains=cat) | Q(
+            category__title__icontains=cat) | Q(category__title_uz__icontains=cat))
+
+        cat_id = Category.objects.values('parent_id').filter(
+            Q(title_ru__icontains=cat) | Q(title_en__icontains=cat) | Q(
+                title__icontains=cat) | Q(title_uz__icontains=cat), is_active=True,
+            resume_type=False,
+        ).first()
+
+        category = Category.objects.filter(is_active=True, resume_type=False,
+                                           parent_id=cat_id['parent_id'])
+
     if search:
+
         products = products.filter(
-            Q(title__icontains=search) | Q(status__contains=search) | Q(brand__title__icontains=search) | Q(
-                description=search))
+            Q(title__icontains=search) | Q(title_ru__icontains=search) | Q(title_en__icontains=search) | Q(
+                title_uz__icontains=search) | Q(
+                status__icontains=search) | Q(brand__title__icontains=search) | Q(description_ru=search) | Q(
+                description_en=search) | Q(description_uz=search) | Q(description_ru=search))
+
+        if products:
+            cat_id = Category.objects.values('parent_id').filter(is_active=True, resume_type=False,
+                                                                 product__title=products.last()).first()
+            category = Category.objects.filter(is_active=True, resume_type=False,
+                                               parent_id=cat_id['parent_id'])
+    if search == "" or shop == '':
+        category = Category.objects.filter(is_active=True, resume_type=False)
+
     if advertisement:
         products = products.filter(advertisement__title__contains=advertisement)
     if brand:
